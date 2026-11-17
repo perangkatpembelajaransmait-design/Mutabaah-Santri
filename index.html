@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#142b3a">
+  <meta name="description" content="Sistem pemantauan ibadah dan perkembangan santri.">
+  <title>Mutabaah Santri</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div id="loadingView" class="loading">
+    <div class="loading-inner">
+      <span class="logo">MS</span>
+      <p>Menyiapkan ruang Mutabaah Santri...</p>
+    </div>
+  </div>
+
+  <section id="authView" class="auth hidden">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <span class="logo">MS</span>
+        <p class="eyebrow">SMAIT AT-TAUFIQ AL-ISLAMY</p>
+        <h1>Mutabaah Santri</h1>
+        <p class="muted">Ruang pemantauan ibadah, Al-Qur'an, dan perkembangan diri santri.</p>
+      </div>
+      <div class="auth-tabs">
+        <button type="button" id="tabLogin" class="auth-tab active">Masuk</button>
+        <button type="button" id="tabRegister" class="auth-tab">Daftar akun</button>
+      </div>
+      <form id="loginForm" class="auth-form">
+        <label for="loginEmail">Email</label>
+        <input id="loginEmail" type="email" autocomplete="username" required placeholder="nama@email.com">
+        <label for="loginPassword">Password</label>
+        <input id="loginPassword" type="password" autocomplete="current-password" required minlength="6" placeholder="Masukkan password">
+        <button id="loginButton" class="primary" type="submit">Masuk ke aplikasi</button>
+      </form>
+      <form id="registerForm" class="auth-form hidden">
+        <label for="registerName">Nama lengkap</label>
+        <input id="registerName" type="text" autocomplete="name" required maxlength="100" placeholder="Nama lengkap">
+        <label for="registerEmail">Email</label>
+        <input id="registerEmail" type="email" autocomplete="email" required placeholder="nama@email.com">
+        <label for="registerRole">Daftar sebagai</label>
+        <select id="registerRole" required>
+          <option value="Orang Tua">Orang Tua</option>
+          <option value="Santri">Santri</option>
+        </select>
+        <label for="registerPassword">Password</label>
+        <input id="registerPassword" type="password" autocomplete="new-password" required minlength="6" placeholder="Minimal 6 karakter">
+        <label for="registerConfirm">Ulangi password</label>
+        <input id="registerConfirm" type="password" autocomplete="new-password" required minlength="6" placeholder="Ulangi password">
+        <button id="registerButton" class="primary" type="submit">Buat akun</button>
+        <p class="hint">Akun baru perlu konfirmasi email jika pengaturan Supabase mengaktifkannya.</p>
+      </form>
+      <p id="authMessage" class="message" role="status" aria-live="polite"></p>
+      <div class="auth-footer">Gunakan email dan password akun Supabase.</div>
+    </div>
+  </section>
+
+  <section id="appView" class="app hidden">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="logo small-logo">MS</span>
+        <div class="brand-text">
+          <b>Mutabaah</b>
+          <small>Santri Development System</small>
+        </div>
+      </div>
+      <div class="sidebar-label">MENU UTAMA</div>
+      <nav class="sidebar-nav" aria-label="Navigasi utama">
+        <button class="nav active" data-page="dashboard" type="button"><span class="nav-icon">⌂</span><span>Dashboard</span></button>
+        <button class="nav" data-page="mutabaah" type="button"><span class="nav-icon">✓</span><span>Mutabaah Harian</span></button>
+        <button class="nav" data-page="quran" type="button"><span class="nav-icon">۞</span><span>Al-Qur'an</span></button>
+        <button class="nav" data-page="explore" type="button"><span class="nav-icon">✦</span><span>Eksplor</span></button>
+        <button class="nav" data-page="rapor" type="button"><span class="nav-icon">▤</span><span>Rapor Santri</span></button>
+      </nav>
+      <div class="sidebar-label management-label">PENGELOLAAN</div>
+      <nav class="sidebar-nav" aria-label="Menu pengelolaan">
+        <button class="nav" data-page="users" type="button"><span class="nav-icon">♙</span><span>Pengguna</span></button>
+      </nav>
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-note">
+        <span class="sidebar-note-mark">MS</span>
+        <div><b>Pembinaan Berkelanjutan</b><small>Mendampingi setiap proses tumbuh santri.</small></div>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="user">
+          <span id="avatar" class="avatar">A</span>
+          <div class="user-meta"><b id="userName">Pengguna</b><small id="userRole">Role</small></div>
+        </div>
+        <button id="logoutButton" class="logout" type="button"><span>↪</span>Keluar</button>
+      </div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar">
+        <div class="topbar-heading">
+          <p class="eyebrow" id="eyebrow">RINGKASAN</p>
+          <h2 id="pageTitle">Dashboard</h2>
+        </div>
+        <div class="topbar-user"><span class="topbar-status"></span><span id="headerUser">Pengguna</span></div>
+      </header>
+      <div id="pageContent" class="content"></div>
+      <footer class="app-footer">
+        <span>Mutabaah Santri</span>
+        <span>Sistem Pemantauan dan Pembinaan Santri</span>
+      </footer>
+    </main>
+  </section>
+</body>
+</html>

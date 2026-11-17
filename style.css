@@ -1,0 +1,5302 @@
+/* ========================================
+ 
+   MUTABAAH SANTRI
+ 
+   Theme: Navy, Cream, Sage
+ 
+======================================== */
+ 
+ 
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;700;800&');
+ 
+ 
+/* ========================================
+ 
+   1. VARIABLES
+ 
+======================================== */
+ 
+ 
+:root {
+ 
+  --navy: #182d3b;
+ 
+  --navy-light: #263e4d;
+ 
+ 
+  --cream: #f6f2e9;
+ 
+  --paper: #fffdf8;
+ 
+ 
+  --sage: #dce7dc;
+ 
+  --green: #6f8d78;
+ 
+ 
+  --ink: #25343b;
+ 
+  --muted: #819096;
+ 
+ 
+  --line: #e8e8e1;
+ 
+ 
+  --danger: #b34b40;
+ 
+  --success: #52785b;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   2. RESET
+ 
+======================================== */
+ 
+ 
+* {
+ 
+  box-sizing: border-box;
+ 
+}
+ 
+ 
+html {
+ 
+  scroll-behavior: smooth;
+ 
+}
+ 
+ 
+body {
+ 
+  margin: 0;
+ 
+  min-height: 100vh;
+ 
+ 
+  background: var(--cream);
+ 
+  color: var(--ink);
+ 
+ 
+  font-family: 'DM Sans', sans-serif;
+ 
+}
+ 
+ 
+button,
+ 
+input,
+ 
+select,
+ 
+textarea {
+ 
+  font: inherit;
+ 
+}
+ 
+ 
+button {
+ 
+  cursor: pointer;
+ 
+}
+ 
+ 
+button:disabled {
+ 
+  opacity: 0.6;
+ 
+  cursor: wait;
+ 
+}
+ 
+ 
+.hidden {
+ 
+  display: none !important;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   3. LOADING
+ 
+======================================== */
+ 
+ 
+.loading {
+ 
+  min-height: 100vh;
+ 
+ 
+  display: grid;
+ 
+  place-items: center;
+ 
+ 
+  color: var(--muted);
+ 
+  font-size: 13px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   4. AUTHENTICATION
+ 
+======================================== */
+ 
+ 
+.auth {
+ 
+  min-height: 100vh;
+ 
+ 
+  display: grid;
+ 
+  place-items: center;
+ 
+ 
+  padding: 24px;
+ 
+ 
+  background:
+ 
+    radial-gradient(
+ 
+      circle at 15% 15%,
+ 
+      #e3eade,
+ 
+      transparent 32%
+ 
+    ),
+ 
+    radial-gradient(
+ 
+      circle at 90% 85%,
+ 
+      #e9dfcf,
+ 
+      transparent 30%
+ 
+    ),
+ 
+    var(--cream);
+ 
+}
+ 
+ 
+.auth-card {
+ 
+  width: min(100%, 460px);
+ 
+ 
+  padding: 38px;
+ 
+ 
+  background: var(--paper);
+ 
+ 
+  border-radius: 26px;
+ 
+ 
+  box-shadow:
+ 
+    0 18px 50px #1f303a14;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   5. LOGO
+ 
+======================================== */
+ 
+ 
+.logo {
+ 
+  width: 52px;
+ 
+  height: 52px;
+ 
+ 
+  border-radius: 17px;
+ 
+ 
+  background: var(--navy);
+ 
+  color: #f5eee2;
+ 
+ 
+  display: grid;
+ 
+  place-items: center;
+ 
+ 
+  font-weight: 800;
+ 
+ 
+  margin-bottom: 24px;
+ 
+}
+ 
+ 
+.small-logo {
+ 
+  width: 41px;
+ 
+  height: 41px;
+ 
+ 
+  margin: 0;
+ 
+ 
+  border-radius: 13px;
+ 
+ 
+  font-size: 13px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   6. TEXT
+ 
+======================================== */
+ 
+ 
+.eyebrow {
+ 
+  font-size: 10px;
+ 
+ 
+  letter-spacing: 1.6px;
+ 
+ 
+  font-weight: 700;
+ 
+ 
+  color: var(--green);
+ 
+ 
+  margin: 0 0 9px;
+ 
+}
+ 
+ 
+.auth-card h1 {
+ 
+  font-family: Manrope, sans-serif;
+ 
+ 
+  font-size: 30px;
+ 
+  font-weight: 800;
+ 
+ 
+  color: var(--navy);
+ 
+ 
+  margin: 0 0 8px;
+ 
+}
+ 
+ 
+.muted {
+ 
+  font-size: 13px;
+ 
+ 
+  color: var(--muted);
+ 
+ 
+  line-height: 1.6;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   7. LOGIN REGISTER TABS
+ 
+======================================== */
+ 
+ 
+.auth-tabs {
+ 
+  display: flex;
+ 
+ 
+  gap: 5px;
+ 
+ 
+  padding: 5px;
+ 
+ 
+  background: #f0f0e9;
+ 
+ 
+  border-radius: 12px;
+ 
+ 
+  margin: 25px 0 20px;
+ 
+}
+ 
+ 
+.auth-tab {
+ 
+  flex: 1;
+ 
+ 
+  border: 0;
+ 
+ 
+  background: transparent;
+ 
+ 
+  padding: 11px;
+ 
+ 
+  border-radius: 9px;
+ 
+ 
+  font-size: 12px;
+ 
+  font-weight: 700;
+ 
+ 
+  color: #718087;
+ 
+}
+ 
+ 
+.auth-tab.active {
+ 
+  background: white;
+ 
+ 
+  color: var(--navy);
+ 
+ 
+  box-shadow:
+ 
+    0 2px 8px #1d2f3810;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   8. FORM
+ 
+======================================== */
+ 
+ 
+form label {
+ 
+  display: block;
+ 
+ 
+  font-size: 12px;
+ 
+  font-weight: 700;
+ 
+ 
+  margin: 16px 0 7px;
+ 
+}
+ 
+ 
+input,
+ 
+select,
+ 
+textarea {
+ 
+  width: 100%;
+ 
+ 
+  border: 1px solid #e1e5df;
+ 
+ 
+  border-radius: 11px;
+ 
+ 
+  padding: 12px;
+ 
+ 
+  background: white;
+ 
+ 
+  color: var(--ink);
+ 
+ 
+  font-size: 13px;
+ 
+}
+ 
+ 
+input:focus,
+ 
+select:focus,
+ 
+textarea:focus {
+ 
+  outline: 2px solid #dce7dc;
+ 
+ 
+  border-color: var(--green);
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   9. BUTTON
+ 
+======================================== */
+ 
+ 
+.primary {
+ 
+  width: 100%;
+ 
+ 
+  height: 47px;
+ 
+ 
+  border: 0;
+ 
+ 
+  border-radius: 11px;
+ 
+ 
+  background: var(--navy);
+ 
+ 
+  color: white;
+ 
+ 
+  font-weight: 700;
+ 
+ 
+  margin-top: 20px;
+ 
+ 
+  transition: 0.2s;
+ 
+}
+ 
+ 
+.primary:hover {
+ 
+  background: var(--navy-light);
+ 
+}
+ 
+ 
+.primary:disabled {
+ 
+  opacity: 0.6;
+ 
+ 
+  cursor: wait;
+ 
+}
+ 
+ 
+.secondary {
+ 
+  border: 1px solid #dfe4dc;
+ 
+ 
+  background: var(--paper);
+ 
+ 
+  color: var(--ink);
+ 
+ 
+  padding: 11px 17px;
+ 
+ 
+  border-radius: 10px;
+ 
+ 
+  font-size: 12px;
+ 
+  font-weight: 700;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   10. AUTH MESSAGE
+ 
+======================================== */
+ 
+ 
+.message {
+ 
+  font-size: 12px;
+ 
+ 
+  color: var(--danger);
+ 
+ 
+  line-height: 1.5;
+ 
+ 
+  min-height: 18px;
+ 
+}
+ 
+ 
+.message.success {
+ 
+  color: var(--success);
+ 
+}
+ 
+ 
+.hint {
+ 
+  font-size: 10px;
+ 
+ 
+  color: var(--muted);
+ 
+ 
+  line-height: 1.5;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   11. APPLICATION LAYOUT
+ 
+======================================== */
+ 
+ 
+.app {
+ 
+  display: flex;
+ 
+  min-height: 100vh;
+ 
+  background: var(--cream);
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   12. SIDEBAR
+ 
+======================================== */
+ 
+ 
+.sidebar {
+ 
+  width: 245px;
+ 
+  min-height: 100vh;
+ 
+ 
+  background: var(--navy);
+ 
+  color: #f6f2e9;
+ 
+ 
+  padding: 24px 16px;
+ 
+ 
+  display: flex;
+ 
+  flex-direction: column;
+ 
+ 
+  flex-shrink: 0;
+ 
+}
+ 
+ 
+/* BRAND */
+ 
+ 
+.brand {
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  gap: 10px;
+ 
+ 
+  padding: 0 9px 30px;
+ 
+}
+ 
+ 
+.brand b,
+ 
+.brand small {
+ 
+  display: block;
+ 
+}
+ 
+ 
+.brand b {
+ 
+  font-family: Manrope, sans-serif;
+ 
+  font-size: 14px;
+ 
+}
+ 
+ 
+.brand small {
+ 
+  font-size: 11px;
+ 
+  color: #b9c8c9;
+ 
+  margin-top: 3px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   13. NAVIGATION
+ 
+======================================== */
+ 
+ 
+.sidebar nav {
+ 
+  display: grid;
+ 
+  gap: 7px;
+ 
+}
+ 
+ 
+.nav {
+ 
+  width: 100%;
+ 
+ 
+  border: 0;
+ 
+  background: transparent;
+ 
+ 
+  color: #c5d0d1;
+ 
+ 
+  text-align: left;
+ 
+ 
+  padding: 13px;
+ 
+ 
+  border-radius: 11px;
+ 
+ 
+  font-size: 12px;
+ 
+  font-weight: 600;
+ 
+ 
+  transition: 0.2s;
+ 
+}
+ 
+ 
+.nav.active,
+ 
+.nav:hover {
+ 
+  background: #ffffff18;
+ 
+  color: white;
+ 
+}
+ 
+ 
+.nav.active {
+ 
+  box-shadow: inset 3px 0 0 #c6d7c4;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   14. SIDEBAR USER
+ 
+======================================== */
+ 
+ 
+.sidebar-bottom {
+ 
+  margin-top: auto;
+ 
+}
+ 
+ 
+.user {
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  gap: 10px;
+ 
+ 
+  padding: 14px 5px;
+ 
+ 
+  border-top: 1px solid #ffffff22;
+ 
+}
+ 
+ 
+.avatar {
+ 
+  width: 36px;
+ 
+  height: 36px;
+ 
+ 
+  flex-shrink: 0;
+ 
+ 
+  border-radius: 50%;
+ 
+ 
+  background: var(--sage);
+ 
+  color: var(--navy);
+ 
+ 
+  display: grid;
+ 
+  place-items: center;
+ 
+ 
+  font-weight: 800;
+ 
+}
+ 
+ 
+.user b,
+ 
+.user small {
+ 
+  display: block;
+ 
+}
+ 
+ 
+.user b {
+ 
+  font-size: 12px;
+ 
+}
+ 
+ 
+.user small {
+ 
+  font-size: 10px;
+ 
+  color: #b9c8c9;
+ 
+  margin-top: 3px;
+ 
+}
+ 
+ 
+/* LOGOUT */
+ 
+ 
+.logout {
+ 
+  width: 100%;
+ 
+ 
+  padding: 11px;
+ 
+ 
+  border: 1px solid #ffffff30;
+ 
+ 
+  background: transparent;
+ 
+  color: #dbe3e1;
+ 
+ 
+  border-radius: 10px;
+ 
+ 
+  font-size: 12px;
+ 
+ 
+  transition: 0.2s;
+ 
+}
+ 
+ 
+.logout:hover {
+ 
+  background: #ffffff12;
+ 
+  border-color: #ffffff60;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   15. MAIN AREA
+ 
+======================================== */
+ 
+ 
+main {
+ 
+  flex: 1;
+ 
+  min-width: 0;
+ 
+  background: var(--cream);
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   16. HEADER
+ 
+======================================== */
+ 
+ 
+header {
+ 
+  min-height: 100px;
+ 
+ 
+  padding: 24px 40px;
+ 
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: space-between;
+ 
+ 
+  gap: 15px;
+ 
+ 
+  border-bottom: 1px solid #e6e5dd;
+ 
+ 
+  background: #f8f5ee;
+ 
+}
+ 
+ 
+header h2 {
+ 
+  font-family: Manrope, sans-serif;
+ 
+ 
+  font-size: 25px;
+ 
+  font-weight: 800;
+ 
+ 
+  color: var(--navy);
+ 
+ 
+  margin: 0;
+ 
+}
+ 
+ 
+.header-user {
+ 
+  font-size: 12px;
+ 
+  color: #627177;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   17. CONTENT AREA
+ 
+======================================== */
+ 
+ 
+.content {
+ 
+  width: 100%;
+ 
+  max-width: 1450px;
+ 
+ 
+  margin: auto;
+ 
+ 
+  padding: 30px 40px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   18. WELCOME SECTION
+ 
+======================================== */
+ 
+ 
+.welcome {
+ 
+  position: relative;
+ 
+ 
+  overflow: hidden;
+ 
+ 
+  background: var(--navy);
+ 
+  color: #f8f5ee;
+ 
+ 
+  border-radius: 21px;
+ 
+ 
+  padding: 30px;
+ 
+}
+ 
+ 
+.welcome::after {
+ 
+  content: "";
+ 
+ 
+  position: absolute;
+ 
+ 
+  width: 180px;
+ 
+  height: 180px;
+ 
+ 
+  border: 1px solid #ffffff18;
+ 
+ 
+  border-radius: 50%;
+ 
+ 
+  right: -45px;
+ 
+  top: -65px;
+ 
+}
+ 
+ 
+.welcome .eyebrow {
+ 
+  color: #b9d0bd;
+ 
+}
+ 
+ 
+.welcome h3 {
+ 
+  font-family: Manrope, sans-serif;
+ 
+ 
+  font-size: 23px;
+ 
+  font-weight: 800;
+ 
+ 
+  margin: 0 0 8px;
+ 
+}
+ 
+ 
+.welcome p:last-child {
+ 
+  margin: 0;
+ 
+ 
+  color: #c2cdd0;
+ 
+ 
+  font-size: 13px;
+ 
+  line-height: 1.6;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   19. STATISTICS
+ 
+======================================== */
+ 
+ 
+.stats {
+ 
+  display: grid;
+ 
+ 
+  grid-template-columns: repeat(3, 1fr);
+ 
+ 
+  gap: 15px;
+ 
+ 
+  margin: 19px 0;
+ 
+}
+ 
+ 
+.stats article {
+ 
+  background: var(--paper);
+ 
+ 
+  border: 1px solid #eae9e2;
+ 
+ 
+  border-radius: 17px;
+ 
+ 
+  padding: 21px;
+ 
+ 
+  transition: 0.2s;
+ 
+}
+ 
+ 
+.stats article:hover {
+ 
+  transform: translateY(-2px);
+ 
+ 
+  box-shadow: 0 8px 20px #263e4d0b;
+ 
+}
+ 
+ 
+.stats small,
+ 
+.stats span {
+ 
+  display: block;
+ 
+ 
+  color: var(--muted);
+ 
+ 
+  font-size: 11px;
+ 
+}
+ 
+ 
+.stats strong {
+ 
+  display: block;
+ 
+ 
+  font-family: Manrope, sans-serif;
+ 
+ 
+  font-size: 30px;
+ 
+  font-weight: 800;
+ 
+ 
+  color: var(--navy);
+ 
+ 
+  margin: 9px 0 4px;
+ 
+}
+ 
+ 
+.stats span {
+ 
+  font-size: 10px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   20. DASHBOARD COLUMNS
+ 
+======================================== */
+ 
+ 
+.columns {
+ 
+  display: grid;
+ 
+ 
+  grid-template-columns: 1.1fr 1fr;
+ 
+ 
+  gap: 15px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   21. PANEL
+ 
+======================================== */
+ 
+ 
+.panel {
+ 
+  background: var(--paper);
+ 
+ 
+  border: 1px solid #eae9e2;
+ 
+ 
+  border-radius: 17px;
+ 
+ 
+  padding: 21px;
+ 
+ 
+  margin-bottom: 16px;
+ 
+}
+ 
+ 
+.panel h3 {
+ 
+  font-family: Manrope, sans-serif;
+ 
+ 
+  font-size: 17px;
+ 
+  font-weight: 800;
+ 
+ 
+  color: var(--navy);
+ 
+ 
+  margin: 0 0 16px;
+ 
+}
+ 
+ 
+.panel p {
+ 
+  line-height: 1.6;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   22. QUICK MENU
+ 
+======================================== */
+ 
+ 
+.quick {
+ 
+  display: flex;
+ 
+ 
+  align-items: center;
+ 
+ 
+  gap: 12px;
+ 
+ 
+  width: 100%;
+ 
+ 
+  padding: 14px 0;
+ 
+ 
+  border: 0;
+ 
+  border-bottom: 1px solid var(--line);
+ 
+ 
+  background: transparent;
+ 
+ 
+  text-align: left;
+ 
+ 
+  color: var(--ink);
+ 
+}
+ 
+ 
+.quick:last-child {
+ 
+  border-bottom: 0;
+ 
+}
+ 
+ 
+.quick span {
+ 
+  flex: 1;
+ 
+}
+ 
+ 
+.quick b,
+ 
+.quick small {
+ 
+  display: block;
+ 
+}
+ 
+ 
+.quick b {
+ 
+  font-size: 12px;
+ 
+  color: var(--navy);
+ 
+}
+ 
+ 
+.quick small {
+ 
+  font-size: 10px;
+ 
+  color: var(--muted);
+ 
+  margin-top: 4px;
+ 
+}
+ 
+ 
+.quick:hover b {
+ 
+  color: var(--green);
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   23. STATUS PILL
+ 
+======================================== */
+ 
+ 
+.pill {
+ 
+  display: inline-flex;
+ 
+  align-items: center;
+ 
+  justify-content: center;
+ 
+ 
+  background: #e7eee5;
+ 
+  color: #65816b;
+ 
+ 
+  border-radius: 20px;
+ 
+ 
+  padding: 5px 9px;
+ 
+ 
+  font-size: 10px;
+ 
+  font-weight: 700;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   24. INFORMATION ROW
+ 
+======================================== */
+ 
+ 
+.row {
+ 
+  display: flex;
+ 
+ 
+  align-items: center;
+ 
+  justify-content: space-between;
+ 
+ 
+  gap: 12px;
+ 
+ 
+  border-top: 1px solid var(--line);
+ 
+ 
+  padding: 13px 0;
+ 
+ 
+  font-size: 11px;
+ 
+ 
+  color: #69787d;
+ 
+}
+ 
+ 
+.row b {
+ 
+  color: var(--navy);
+ 
+  text-align: right;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   25. NOTICE
+ 
+======================================== */
+ 
+ 
+.notice {
+ 
+  display: flex;
+ 
+  flex-direction: column;
+ 
+ 
+  gap: 5px;
+ 
+ 
+  margin-top: 17px;
+ 
+ 
+  padding: 15px 18px;
+ 
+ 
+  border-radius: 13px;
+ 
+ 
+  background: #e9eee5;
+ 
+  color: #526b59;
+ 
+ 
+  font-size: 11px;
+ 
+  line-height: 1.5;
+ 
+}
+ 
+ 
+.notice b {
+ 
+  font-size: 12px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   26. FORM GRID
+ 
+======================================== */
+ 
+ 
+.form-grid {
+ 
+  display: grid;
+ 
+ 
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+ 
+ 
+  gap: 14px;
+ 
+  margin-bottom: 15px;
+ 
+}
+ 
+ 
+.form-grid > div {
+ 
+  min-width: 0;
+ 
+}
+ 
+ 
+.panel form label {
+ 
+  color: var(--navy);
+ 
+}
+ 
+ 
+.panel input,
+ 
+.panel select,
+ 
+.panel textarea {
+ 
+  background: #fffefa;
+ 
+}
+ 
+ 
+.panel textarea {
+ 
+  resize: vertical;
+ 
+  min-height: 75px;
+ 
+  line-height: 1.6;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   27. SECTION TITLE
+ 
+======================================== */
+ 
+ 
+.section-title {
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+ 
+  gap: 12px;
+ 
+ 
+  margin: 27px 0 15px;
+ 
+  padding-bottom: 13px;
+ 
+ 
+  border-bottom: 1px solid var(--line);
+ 
+}
+ 
+ 
+.section-title > span {
+ 
+  width: 34px;
+ 
+  height: 34px;
+ 
+ 
+  flex-shrink: 0;
+ 
+ 
+  display: grid;
+ 
+  place-items: center;
+ 
+ 
+  border-radius: 11px;
+ 
+ 
+  background: var(--sage);
+ 
+  color: var(--navy);
+ 
+ 
+  font-family: Manrope, sans-serif;
+ 
+  font-size: 12px;
+ 
+  font-weight: 800;
+ 
+}
+ 
+ 
+.section-title h4 {
+ 
+  margin: 0;
+ 
+ 
+  color: var(--navy);
+ 
+ 
+  font-family: Manrope, sans-serif;
+ 
+  font-size: 14px;
+ 
+}
+ 
+ 
+.section-title p {
+ 
+  margin: 4px 0 0;
+ 
+ 
+  color: var(--muted);
+ 
+  font-size: 10px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   28. PRAYER LIST
+ 
+======================================== */
+ 
+ 
+.prayer-list {
+ 
+  display: grid;
+ 
+  gap: 9px;
+ 
+}
+ 
+ 
+.prayer-row {
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: space-between;
+ 
+ 
+  gap: 15px;
+ 
+ 
+  padding: 12px 14px;
+ 
+ 
+  border: 1px solid var(--line);
+ 
+  border-radius: 12px;
+ 
+ 
+  background: #fffefa;
+ 
+}
+ 
+ 
+.prayer-row strong {
+ 
+  color: var(--navy);
+ 
+  font-size: 12px;
+ 
+}
+ 
+ 
+.prayer-row select {
+ 
+  width: min(190px, 60%);
+ 
+ 
+  padding: 9px 10px;
+ 
+ 
+  font-size: 11px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   29. FORM ACTIONS
+ 
+======================================== */
+ 
+ 
+.form-actions {
+ 
+  display: flex;
+ 
+  justify-content: flex-end;
+ 
+  align-items: center;
+ 
+ 
+  gap: 10px;
+ 
+ 
+  margin-top: 20px;
+ 
+}
+ 
+ 
+.form-actions .primary {
+ 
+  width: auto;
+ 
+ 
+  min-width: 150px;
+ 
+ 
+  margin: 0;
+ 
+ 
+  padding: 0 20px;
+ 
+}
+ 
+ 
+.form-actions .secondary {
+ 
+  min-width: 90px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   30. SAVED PANEL
+ 
+======================================== */
+ 
+ 
+.saved-panel {
+ 
+  margin-top: 18px;
+ 
+}
+ 
+ 
+.panel-heading {
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: space-between;
+ 
+ 
+  gap: 12px;
+ 
+ 
+  margin-bottom: 14px;
+ 
+}
+ 
+ 
+.panel-heading h3 {
+ 
+  margin: 0;
+ 
+}
+ 
+ 
+.panel-heading .secondary {
+ 
+  white-space: nowrap;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   31. HISTORY LIST
+ 
+======================================== */
+ 
+ 
+.history-list {
+ 
+  display: grid;
+ 
+  gap: 9px;
+ 
+}
+ 
+ 
+.history-item {
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: space-between;
+ 
+ 
+  gap: 12px;
+ 
+ 
+  padding: 14px;
+ 
+ 
+  border: 1px solid var(--line);
+ 
+  border-radius: 12px;
+ 
+ 
+  background: #fffefa;
+ 
+}
+ 
+ 
+.history-item strong,
+ 
+.history-item small {
+ 
+  display: block;
+ 
+}
+ 
+ 
+.history-item strong {
+ 
+  color: var(--navy);
+ 
+  font-size: 12px;
+ 
+}
+ 
+ 
+.history-item small {
+ 
+  margin-top: 5px;
+ 
+ 
+  color: var(--muted);
+ 
+  font-size: 10px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   32. GENERAL LIST ROW
+ 
+======================================== */
+ 
+ 
+.list-row {
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: space-between;
+ 
+ 
+  gap: 12px;
+ 
+ 
+  padding: 13px 0;
+ 
+ 
+  border-bottom: 1px solid var(--line);
+ 
+}
+ 
+ 
+.list-row:last-child {
+ 
+  border-bottom: 0;
+ 
+}
+ 
+ 
+.list-row b,
+ 
+.list-row small {
+ 
+  display: block;
+ 
+}
+ 
+ 
+.list-row b {
+ 
+  color: var(--navy);
+ 
+  font-size: 12px;
+ 
+}
+ 
+ 
+.list-row small {
+ 
+  margin-top: 4px;
+ 
+ 
+  color: var(--muted);
+ 
+  font-size: 10px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   33. EMPTY STATE
+ 
+======================================== */
+ 
+ 
+.empty-state {
+ 
+  padding: 25px 15px;
+ 
+ 
+  text-align: center;
+ 
+ 
+  color: var(--muted);
+ 
+ 
+  font-size: 12px;
+ 
+  line-height: 1.6;
+ 
+}
+ 
+ 
+.empty-state strong {
+ 
+  display: block;
+ 
+ 
+  margin-bottom: 5px;
+ 
+ 
+  color: var(--navy);
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   34. STATUS
+ 
+======================================== */
+ 
+ 
+.status {
+ 
+  display: inline-flex;
+ 
+  align-items: center;
+ 
+  justify-content: center;
+ 
+ 
+  padding: 6px 10px;
+ 
+ 
+  border-radius: 20px;
+ 
+ 
+  font-size: 10px;
+ 
+  font-weight: 700;
+ 
+}
+ 
+ 
+.status.success {
+ 
+  background: #e4eee3;
+ 
+  color: #52785b;
+ 
+}
+ 
+ 
+.status.warning {
+ 
+  background: #f6eedc;
+ 
+  color: #9b7841;
+ 
+}
+ 
+ 
+.status.danger {
+ 
+  background: #f5e5e1;
+ 
+  color: #a34e43;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   35. TABLE
+ 
+======================================== */
+ 
+ 
+.table-wrap {
+ 
+  width: 100%;
+ 
+ 
+  overflow-x: auto;
+ 
+ 
+  border: 1px solid var(--line);
+ 
+  border-radius: 12px;
+ 
+}
+ 
+ 
+table {
+ 
+  width: 100%;
+ 
+ 
+  border-collapse: collapse;
+ 
+ 
+  font-size: 11px;
+ 
+}
+ 
+ 
+thead {
+ 
+  background: #edf1e9;
+ 
+}
+ 
+ 
+th {
+ 
+  padding: 13px;
+ 
+ 
+  color: var(--navy);
+ 
+ 
+  font-weight: 700;
+ 
+ 
+  text-align: left;
+ 
+  white-space: nowrap;
+ 
+}
+ 
+ 
+td {
+ 
+  padding: 12px 13px;
+ 
+ 
+  color: #5e6d72;
+ 
+ 
+  border-top: 1px solid var(--line);
+ 
+}
+ 
+ 
+tbody tr:hover {
+ 
+  background: #fbfaf5;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   36. FILTER
+ 
+======================================== */
+ 
+ 
+.filter-row {
+ 
+  display: flex;
+ 
+  flex-wrap: wrap;
+ 
+ 
+  align-items: end;
+ 
+ 
+  gap: 12px;
+ 
+ 
+  margin-bottom: 18px;
+ 
+}
+ 
+ 
+.filter-row > div {
+ 
+  flex: 1;
+ 
+  min-width: 150px;
+ 
+}
+ 
+ 
+.filter-row label {
+ 
+  display: block;
+ 
+ 
+  margin-bottom: 7px;
+ 
+ 
+  font-size: 11px;
+ 
+  font-weight: 700;
+ 
+ 
+  color: var(--navy);
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   37. SEARCH
+ 
+======================================== */
+ 
+ 
+.search-box {
+ 
+  width: 100%;
+ 
+  max-width: 320px;
+ 
+ 
+  padding: 11px 14px;
+ 
+ 
+  border: 1px solid var(--line);
+ 
+  border-radius: 11px;
+ 
+ 
+  background: white;
+ 
+ 
+  font-size: 12px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   38. PAGINATION
+ 
+======================================== */
+ 
+ 
+.pagination {
+ 
+  display: flex;
+ 
+  justify-content: center;
+ 
+  align-items: center;
+ 
+ 
+  gap: 7px;
+ 
+ 
+  margin-top: 18px;
+ 
+}
+ 
+ 
+.pagination button {
+ 
+  min-width: 34px;
+ 
+  height: 34px;
+ 
+ 
+  border: 1px solid var(--line);
+ 
+  border-radius: 9px;
+ 
+ 
+  background: white;
+ 
+ 
+  color: var(--navy);
+ 
+ 
+  font-size: 11px;
+ 
+}
+ 
+ 
+.pagination button.active {
+ 
+  background: var(--navy);
+ 
+  color: white;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   39. QUICK TRANSITIONS
+ 
+======================================== */
+ 
+ 
+.panel,
+ 
+.quick,
+ 
+.nav,
+ 
+.primary,
+ 
+.secondary {
+ 
+  transition:
+ 
+    *background* 0.2s ease,
+ 
+    color 0.2s ease,
+ 
+    border-color 0.2s ease,
+ 
+    box-shadow 0.2s ease;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   40. QURAN HERO
+ 
+======================================== */
+ 
+ 
+.quran-hero {
+ 
+  position: relative;
+ 
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: space-between;
+ 
+ 
+  gap: 20px;
+ 
+ 
+  overflow: hidden;
+ 
+ 
+  padding: 27px 30px;
+ 
+ 
+  margin-bottom: 17px;
+ 
+ 
+  border-radius: 20px;
+ 
+ 
+  background:
+ 
+    linear-gradient(
+ 
+      120deg,
+ 
+      #182d3b,
+ 
+      #304b53
+ 
+    );
+ 
+ 
+  color: #f8f5ee;
+ 
+}
+ 
+ 
+.quran-hero .eyebrow {
+ 
+  color: #c4d7c2;
+ 
+}
+ 
+ 
+.quran-hero h3 {
+ 
+  font-family: Manrope, sans-serif;
+ 
+ 
+  font-size: 23px;
+ 
+  font-weight: 800;
+ 
+ 
+  margin: 0 0 8px;
+ 
+}
+ 
+ 
+.quran-hero p:last-child {
+ 
+  max-width: 500px;
+ 
+ 
+  margin: 0;
+ 
+ 
+  color: #d1dcd8;
+ 
+ 
+  font-size: 12px;
+ 
+  line-height: 1.6;
+ 
+}
+ 
+ 
+.quran-hero-mark {
+ 
+  width: 76px;
+ 
+  height: 76px;
+ 
+ 
+  flex-shrink: 0;
+ 
+ 
+  display: grid;
+ 
+  place-items: center;
+ 
+ 
+  border: 1px solid #ffffff35;
+ 
+ 
+  border-radius: 22px;
+ 
+ 
+  color: #e3e9d8;
+ 
+ 
+  font-size: 48px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   41. QURAN TOOLBAR
+ 
+======================================== */
+ 
+ 
+.quran-toolbar {
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: space-between;
+ 
+ 
+  gap: 20px;
+ 
+}
+ 
+ 
+.quran-toolbar-info {
+ 
+  display: flex;
+ 
+  flex-direction: column;
+ 
+ 
+  gap: 5px;
+ 
+}
+ 
+ 
+.quran-toolbar-info small {
+ 
+  color: var(--muted);
+ 
+  font-size: 10px;
+ 
+}
+ 
+ 
+.quran-role {
+ 
+  width: fit-content;
+ 
+ 
+  padding: 6px 11px;
+ 
+ 
+  border-radius: 20px;
+ 
+ 
+  background: var(--sage);
+ 
+  color: var(--navy);
+ 
+ 
+  font-size: 10px;
+ 
+  font-weight: 700;
+ 
+}
+ 
+ 
+.quran-toolbar select {
+ 
+  max-width: 300px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   42. QURAN STUDENT FIXED
+ 
+======================================== */
+ 
+ 
+.quran-student-fixed {
+ 
+  padding: 12px 15px;
+ 
+ 
+  border-radius: 11px;
+ 
+ 
+  background: #f0f2eb;
+ 
+ 
+  color: var(--navy);
+ 
+ 
+  font-size: 12px;
+ 
+  font-weight: 700;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   43. QURAN TABS
+ 
+======================================== */
+ 
+ 
+.quran-tabs {
+ 
+  display: flex;
+ 
+ 
+  gap: 7px;
+ 
+ 
+  padding: 7px;
+ 
+ 
+  margin: 17px 0;
+ 
+ 
+  overflow-x: auto;
+ 
+ 
+  background: #e9eae2;
+ 
+ 
+  border-radius: 14px;
+ 
+ 
+  scrollbar-width: thin;
+ 
+}
+ 
+ 
+.quran-tab {
+ 
+  flex-shrink: 0;
+ 
+ 
+  border: 0;
+ 
+ 
+  padding: 11px 15px;
+ 
+ 
+  border-radius: 10px;
+ 
+ 
+  background: transparent;
+ 
+ 
+  color: #68777a;
+ 
+ 
+  font-size: 11px;
+ 
+  font-weight: 700;
+ 
+ 
+  transition: 0.2s;
+ 
+}
+ 
+ 
+.quran-tab:hover {
+ 
+  color: var(--navy);
+ 
+  background: #ffffff80;
+ 
+}
+ 
+ 
+.quran-tab.active {
+ 
+  background: var(--navy);
+ 
+ 
+  color: white;
+ 
+ 
+  box-shadow: 0 3px 9px #182d3b20;
+ 
+}
+ 
+ 
+.quran-tab-content {
+ 
+  min-width: 0;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   44. QURAN METRICS
+ 
+======================================== */
+ 
+ 
+.quran-metrics {
+ 
+  display: grid;
+ 
+ 
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+ 
+ 
+  gap: 12px;
+ 
+ 
+  margin-top: 20px;
+ 
+}
+ 
+ 
+.quran-metrics article {
+ 
+  display: flex;
+ 
+  flex-direction: column;
+ 
+ 
+  gap: 5px;
+ 
+ 
+  min-width: 0;
+ 
+ 
+  padding: 17px;
+ 
+ 
+  border: 1px solid var(--line);
+ 
+ 
+  border-radius: 14px;
+ 
+ 
+  background: #fffefa;
+ 
+}
+ 
+ 
+.quran-metrics small {
+ 
+  color: var(--muted);
+ 
+ 
+  font-size: 10px;
+ 
+}
+ 
+ 
+.quran-metrics strong {
+ 
+  color: var(--navy);
+ 
+ 
+  font-family: Manrope, sans-serif;
+ 
+ 
+  font-size: 25px;
+ 
+  font-weight: 800;
+ 
+}
+ 
+ 
+.quran-metrics span {
+ 
+  color: var(--green);
+ 
+ 
+  font-size: 10px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   45. QURAN SUMMARY GRID
+ 
+======================================== */
+ 
+ 
+.quran-summary-grid {
+ 
+  display: grid;
+ 
+ 
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+ 
+ 
+  gap: 12px;
+ 
+ 
+  margin-top: 14px;
+ 
+}
+ 
+ 
+.quran-summary-card {
+ 
+  padding: 17px;
+ 
+ 
+  border-radius: 13px;
+ 
+ 
+  background: #edf1e9;
+ 
+ 
+  display: flex;
+ 
+  flex-direction: column;
+ 
+ 
+  gap: 6px;
+ 
+}
+ 
+ 
+.quran-summary-card small {
+ 
+  color: #718078;
+ 
+  font-size: 10px;
+ 
+}
+ 
+ 
+.quran-summary-card strong {
+ 
+  color: var(--navy);
+ 
+ 
+  font-family: Manrope, sans-serif;
+ 
+ 
+  font-size: 23px;
+ 
+}
+ 
+ 
+.quran-summary-card span {
+ 
+  color: #718078;
+ 
+  font-size: 10px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   46. QURAN LIST ROW
+ 
+======================================== */
+ 
+ 
+.quran-list-row {
+ 
+  display: flex;
+ 
+ 
+  align-items: center;
+ 
+  justify-content: space-between;
+ 
+ 
+  gap: 13px;
+ 
+ 
+  padding: 14px 0;
+ 
+ 
+  border-bottom: 1px solid var(--line);
+ 
+}
+ 
+ 
+.quran-list-row:last-child {
+ 
+  border-bottom: 0;
+ 
+}
+ 
+ 
+.quran-list-row > div {
+ 
+  min-width: 0;
+ 
+}
+ 
+ 
+.quran-list-row b {
+ 
+  display: block;
+ 
+ 
+  color: var(--navy);
+ 
+ 
+  font-size: 12px;
+ 
+  line-height: 1.5;
+ 
+}
+ 
+ 
+.quran-list-row small {
+ 
+  display: block;
+ 
+ 
+  margin-top: 5px;
+ 
+ 
+  color: var(--muted);
+ 
+ 
+  font-size: 10px;
+ 
+  line-height: 1.5;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   47. QURAN STATUS
+ 
+======================================== */
+ 
+ 
+.quran-status {
+ 
+  display: inline-flex;
+ 
+ 
+  align-items: center;
+ 
+  justify-content: center;
+ 
+ 
+  flex-shrink: 0;
+ 
+ 
+  padding: 6px 10px;
+ 
+ 
+  border-radius: 20px;
+ 
+ 
+  font-size: 10px;
+ 
+  font-weight: 700;
+ 
+ 
+  white-space: nowrap;
+ 
+}
+ 
+ 
+.quran-status.valid {
+ 
+  background: #e5eee4;
+ 
+  color: #55775d;
+ 
+}
+ 
+ 
+.quran-status.menunggu {
+ 
+  background: #f5efdc;
+ 
+  color: #947b45;
+ 
+}
+ 
+ 
+.quran-status.perlu_perbaikan {
+ 
+  background: #f4e4df;
+ 
+  color: #a34f43;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   48. QURAN STATUS SELECT
+ 
+======================================== */
+ 
+ 
+.quran-status-select {
+ 
+  width: auto;
+ 
+  min-width: 135px;
+ 
+ 
+  padding: 8px 10px;
+ 
+ 
+  font-size: 10px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   49. QURAN EMPTY
+ 
+======================================== */
+ 
+ 
+.quran-empty {
+ 
+  padding: 23px 15px;
+ 
+ 
+  border-radius: 12px;
+ 
+ 
+  background: #f4f3ed;
+ 
+ 
+  color: var(--muted);
+ 
+ 
+  font-size: 11px;
+ 
+ 
+  text-align: center;
+ 
+  line-height: 1.6;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   50. QURAN READ ONLY
+ 
+======================================== */
+ 
+ 
+.quran-readonly {
+ 
+  margin-bottom: 17px;
+ 
+ 
+  background: #e9eee7;
+ 
+  color: #526b59;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   51. QURAN CHECK GRID
+ 
+======================================== */
+ 
+ 
+.quran-check-grid {
+ 
+  display: grid;
+ 
+ 
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+ 
+ 
+  gap: 10px;
+ 
+ 
+  margin: 17px 0;
+ 
+}
+ 
+ 
+.quran-check-grid label {
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+ 
+  gap: 9px;
+ 
+ 
+  margin: 0;
+ 
+ 
+  padding: 13px;
+ 
+ 
+  border: 1px solid var(--line);
+ 
+ 
+  border-radius: 11px;
+ 
+ 
+  background: #fffefa;
+ 
+ 
+  color: var(--navy);
+ 
+ 
+  font-size: 11px;
+ 
+}
+ 
+ 
+.quran-check-grid input {
+ 
+  width: 16px;
+ 
+  height: 16px;
+ 
+ 
+  margin: 0;
+ 
+ 
+  accent-color: var(--green);
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   52. QURAN SCORE GRID
+ 
+======================================== */
+ 
+ 
+.quran-score-grid {
+ 
+  display: grid;
+ 
+ 
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+ 
+ 
+  gap: 10px;
+ 
+ 
+  margin: 16px 0;
+ 
+}
+ 
+ 
+.quran-score {
+ 
+  padding: 14px 10px;
+ 
+ 
+  border: 1px solid var(--line);
+ 
+ 
+  border-radius: 12px;
+ 
+ 
+  background: #fffefa;
+ 
+ 
+  display: flex;
+ 
+  flex-direction: column;
+ 
+ 
+  gap: 5px;
+ 
+}
+ 
+ 
+.quran-score small {
+ 
+  color: var(--muted);
+ 
+  font-size: 10px;
+ 
+}
+ 
+ 
+.quran-score strong {
+ 
+  color: var(--navy);
+ 
+ 
+  font-family: Manrope, sans-serif;
+ 
+ 
+  font-size: 21px;
+ 
+}
+ 
+ 
+.quran-score span {
+ 
+  color: var(--green);
+ 
+  font-size: 9px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   53. QURAN EVALUATION ITEM
+ 
+======================================== */
+ 
+ 
+.quran-eval-item {
+ 
+  padding: 17px 0;
+ 
+ 
+  border-bottom: 1px solid var(--line);
+ 
+}
+ 
+ 
+.quran-eval-item:last-child {
+ 
+  border-bottom: 0;
+ 
+}
+ 
+ 
+.quran-eval-item > p {
+ 
+  margin-bottom: 0;
+ 
+ 
+  font-size: 11px;
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   54. RESPONSIVE TABLET
+ 
+======================================== */
+ 
+ 
+@media (max-width: 1000px) {
+ 
+ 
+  .sidebar {
+ 
+    width: 215px;
+ 
+  }
+ 
+ 
+  .content {
+ 
+    padding: 25px;
+ 
+  }
+ 
+ 
+  header {
+ 
+    padding: 22px 25px;
+ 
+  }
+ 
+ 
+  .quran-metrics {
+ 
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+ 
+  }
+ 
+ 
+  .quran-score-grid {
+ 
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+ 
+  }
+ 
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   55. RESPONSIVE MOBILE
+ 
+======================================== */
+ 
+ 
+@media (max-width: 700px) {
+ 
+ 
+  .app {
+ 
+    display: block;
+ 
+  }
+ 
+ 
+  .sidebar {
+ 
+    width: 100%;
+ 
+    min-height: auto;
+ 
+ 
+    padding: 12px 14px;
+ 
+ 
+    display: block;
+ 
+  }
+ 
+ 
+  .brand {
+ 
+    padding: 0 4px 12px;
+ 
+  }
+ 
+ 
+  .sidebar nav {
+ 
+    display: flex;
+ 
+ 
+    gap: 6px;
+ 
+ 
+    overflow-x: auto;
+ 
+ 
+    padding-bottom: 5px;
+ 
+ 
+    scrollbar-width: thin;
+ 
+  }
+ 
+ 
+  .nav {
+ 
+    flex-shrink: 0;
+ 
+ 
+    width: auto;
+ 
+ 
+    padding: 10px 13px;
+ 
+ 
+    white-space: nowrap;
+ 
+ 
+    font-size: 10px;
+ 
+  }
+ 
+ 
+  .nav.active {
+ 
+    box-shadow: inset 0 -3px 0 #c6d7c4;
+ 
+  }
+ 
+ 
+  .sidebar-bottom {
+ 
+    display: flex;
+ 
+ 
+    align-items: center;
+ 
+    justify-content: space-between;
+ 
+ 
+    gap: 10px;
+ 
+ 
+    margin-top: 12px;
+ 
+ 
+    padding-top: 10px;
+ 
+ 
+    border-top: 1px solid #ffffff22;
+ 
+  }
+ 
+ 
+  .user {
+ 
+    border: 0;
+ 
+    padding: 0;
+ 
+  }
+ 
+ 
+  .logout {
+ 
+    width: auto;
+ 
+    padding: 9px 13px;
+ 
+  }
+ 
+ 
+  header {
+ 
+    min-height: 75px;
+ 
+ 
+    padding: 16px 19px;
+ 
+  }
+ 
+ 
+  header h2 {
+ 
+    font-size: 19px;
+ 
+  }
+ 
+ 
+  .content {
+ 
+    padding: 18px;
+ 
+  }
+ 
+ 
+  .welcome {
+ 
+    padding: 24px;
+ 
+ 
+    border-radius: 17px;
+ 
+  }
+ 
+ 
+  .welcome h3 {
+ 
+    font-size: 19px;
+ 
+  }
+ 
+ 
+  .stats {
+ 
+    grid-template-columns: 1fr;
+ 
+ 
+    gap: 10px;
+ 
+  }
+ 
+ 
+  .stats article {
+ 
+    padding: 16px;
+ 
+  }
+ 
+ 
+  .stats strong {
+ 
+    font-size: 24px;
+ 
+  }
+ 
+ 
+  .columns {
+ 
+    grid-template-columns: 1fr;
+ 
+  }
+ 
+ 
+  .form-grid {
+ 
+    grid-template-columns: 1fr;
+ 
+  }
+ 
+ 
+  .panel {
+ 
+    padding: 17px;
+ 
+  }
+ 
+ 
+  .quran-hero {
+ 
+    padding: 21px;
+ 
+ 
+    border-radius: 16px;
+ 
+  }
+ 
+ 
+  .quran-hero h3 {
+ 
+    font-size: 19px;
+ 
+  }
+ 
+ 
+  .quran-hero-mark {
+ 
+    width: 55px;
+ 
+    height: 55px;
+ 
+ 
+    border-radius: 16px;
+ 
+ 
+    font-size: 34px;
+ 
+  }
+ 
+ 
+  .quran-toolbar {
+ 
+    align-items: stretch;
+ 
+    flex-direction: column;
+ 
+  }
+ 
+ 
+  .quran-toolbar select {
+ 
+    max-width: none;
+ 
+  }
+ 
+ 
+  .quran-metrics {
+ 
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+ 
+ 
+    gap: 9px;
+ 
+  }
+ 
+ 
+  .quran-metrics article {
+ 
+    padding: 13px;
+ 
+  }
+ 
+ 
+  .quran-metrics strong {
+ 
+    font-size: 22px;
+ 
+  }
+ 
+ 
+  .quran-summary-grid {
+ 
+    grid-template-columns: 1fr;
+ 
+  }
+ 
+ 
+  .quran-check-grid {
+ 
+    grid-template-columns: 1fr;
+ 
+  }
+ 
+ 
+  .quran-score-grid {
+ 
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+ 
+  }
+ 
+ 
+  .quran-list-row {
+ 
+    align-items: flex-start;
+ 
+  }
+ 
+ 
+  .quran-status-select {
+ 
+    min-width: 110px;
+ 
+    max-width: 125px;
+ 
+  }
+ 
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   56. SMALL MOBILE
+ 
+======================================== */
+ 
+ 
+@media (max-width: 420px) {
+ 
+ 
+  .auth-card {
+ 
+    padding: 25px 20px;
+ 
+  }
+ 
+ 
+  .auth-card h1 {
+ 
+    font-size: 25px;
+ 
+  }
+ 
+ 
+  .content {
+ 
+    padding: 13px;
+ 
+  }
+ 
+ 
+  .panel {
+ 
+    padding: 15px;
+ 
+  }
+ 
+ 
+  .quran-metrics {
+ 
+    grid-template-columns: 1fr 1fr;
+ 
+  }
+ 
+ 
+  .quran-score-grid {
+ 
+    grid-template-columns: 1fr 1fr;
+ 
+  }
+ 
+ 
+  .quran-list-row {
+ 
+    flex-direction: column;
+ 
+    align-items: stretch;
+ 
+  }
+ 
+ 
+  .quran-status-select {
+ 
+    max-width: none;
+ 
+    width: 100%;
+ 
+  }
+ 
+ 
+  .form-actions {
+ 
+    flex-direction: column-reverse;
+ 
+    align-items: stretch;
+ 
+  }
+ 
+ 
+  .form-actions button {
+ 
+    width: 100% !important;
+ 
+  }
+ 
+ 
+}
+ 
+ 
+/* ========================================
+ 
+   57. ACCESSIBILITY
+ 
+======================================== */
+ 
+ 
+button:focus-visible,
+ 
+input:focus-visible,
+ 
+select:focus-visible,
+ 
+textarea:focus-visible {
+ 
+  outline: 2px solid var(--green);
+ 
+  outline-offset: 2px;
+ 
+}
+ 
+ 
+@media (prefers-reduced-motion: reduce) {
+ 
+ 
+  *,
+ 
+  *::before,
+ 
+  *::after {
+ 
+    scroll-behavior: auto !important;
+ 
+    transition-duration: 0.01ms !important;
+ 
+    animation-duration: 0.01ms !important;
+ 
+  }
+ 
+ 
+}
+ 
+ 
+/* =====================================================
+ 
+   MUTABAAH SANTRI — DESIGN SYSTEM UPDATE
+ 
+   Navy · Cream · Sage
+ 
+===================================================== */
+ 
+ 
+:root {
+ 
+  --navy: #142b3a;
+ 
+  --navy-light: #203c4d;
+ 
+  --navy-soft: #2c4a59;
+ 
+ 
+  --cream: #f4f1e9;
+ 
+  --paper: #fffdf9;
+ 
+ 
+  --sage: #dce6dc;
+ 
+  --sage-dark: #6f8975;
+ 
+ 
+  --ink: #263740;
+ 
+  --muted: #829096;
+ 
+  --line: #e7e9e3;
+ 
+ 
+  --danger: #b34b40;
+ 
+  --success: #52785b;
+ 
+ 
+  --sidebar-width: 258px;
+ 
+  --radius-lg: 20px;
+ 
+  --radius-md: 14px;
+ 
+}
+ 
+ 
+/* GLOBAL */
+ 
+ 
+* {
+ 
+  box-sizing: border-box;
+ 
+}
+ 
+ 
+body {
+ 
+  background: var(--cream);
+ 
+  color: var(--ink);
+ 
+  font-family: "DM Sans", sans-serif;
+ 
+}
+ 
+ 
+button,
+ 
+input,
+ 
+select,
+ 
+textarea {
+ 
+  font: inherit;
+ 
+}
+ 
+ 
+button {
+ 
+  transition: background .2s ease, color .2s ease,
+ 
+              border-color .2s ease, transform .2s ease;
+ 
+}
+ 
+ 
+button:focus-visible,
+ 
+input:focus-visible,
+ 
+select:focus-visible,
+ 
+textarea:focus-visible {
+ 
+  outline: 3px solid #8ca99566;
+ 
+  outline-offset: 2px;
+ 
+}
+ 
+ 
+/* LOADING */
+ 
+ 
+.loading {
+ 
+  background: var(--cream);
+ 
+  color: var(--muted);
+ 
+}
+ 
+ 
+.loading-inner {
+ 
+  display: flex;
+ 
+  flex-direction: column;
+ 
+  align-items: center;
+ 
+  gap: 12px;
+ 
+}
+ 
+ 
+.loading-inner .logo {
+ 
+  margin: 0;
+ 
+}
+ 
+ 
+.loading-inner p {
+ 
+  font-size: 13px;
+ 
+}
+ 
+ 
+/* AUTH */
+ 
+ 
+.auth {
+ 
+  background:
+ 
+    radial-gradient(circle at 12% 15%, #dce6dc 0, transparent 30%),
+ 
+    radial-gradient(circle at 90% 85%, #e9dfcf 0, transparent 32%),
+ 
+    var(--cream);
+ 
+}
+ 
+ 
+.auth-card {
+ 
+  border: 1px solid #ffffffb8;
+ 
+  border-radius: 24px;
+ 
+  box-shadow: 0 24px 70px #142b3a12;
+ 
+}
+ 
+ 
+.auth-brand {
+ 
+  margin-bottom: 28px;
+ 
+}
+ 
+ 
+.auth-brand .logo {
+ 
+  margin-bottom: 25px;
+ 
+}
+ 
+ 
+.auth-brand h1 {
+ 
+  margin: 0 0 10px;
+ 
+  color: var(--navy);
+ 
+  font-family: Manrope, sans-serif;
+ 
+  font-size: 27px;
+ 
+  font-weight: 800;
+ 
+  letter-spacing: -.8px;
+ 
+}
+ 
+ 
+.auth-brand .muted {
+ 
+  line-height: 1.7;
+ 
+}
+ 
+ 
+.auth-tabs {
+ 
+  display: grid;
+ 
+  grid-template-columns: 1fr 1fr;
+ 
+  padding: 5px;
+ 
+  margin-bottom: 24px;
+ 
+  border-radius: 12px;
+ 
+  background: #f0f1eb;
+ 
+}
+ 
+ 
+.auth-tab {
+ 
+  padding: 11px;
+ 
+  border: 0;
+ 
+  border-radius: 9px;
+ 
+  background: transparent;
+ 
+  color: var(--muted);
+ 
+  font-size: 12px;
+ 
+  font-weight: 700;
+ 
+}
+ 
+ 
+.auth-tab.active {
+ 
+  background: var(--paper);
+ 
+  color: var(--navy);
+ 
+  box-shadow: 0 2px 8px #142b3a0d;
+ 
+}
+ 
+ 
+.auth-form label {
+ 
+  display: block;
+ 
+  margin: 15px 0 7px;
+ 
+  color: var(--ink);
+ 
+  font-size: 12px;
+ 
+  font-weight: 700;
+ 
+}
+ 
+ 
+.auth-form input,
+ 
+.auth-form select {
+ 
+  width: 100%;
+ 
+  min-height: 45px;
+ 
+  padding: 11px 13px;
+ 
+  border: 1px solid var(--line);
+ 
+  border-radius: 10px;
+ 
+  background: white;
+ 
+  color: var(--ink);
+ 
+  font-size: 13px;
+ 
+}
+ 
+ 
+.auth-form input:focus,
+ 
+.auth-form select:focus {
+ 
+  border-color: var(--sage-dark);
+ 
+}
+ 
+ 
+.auth-form .primary {
+ 
+  width: 100%;
+ 
+  min-height: 46px;
+ 
+  margin-top: 24px;
+ 
+}
+ 
+ 
+.auth-footer {
+ 
+  padding-top: 20px;
+ 
+  margin-top: 22px;
+ 
+  border-top: 1px solid var(--line);
+ 
+  color: var(--muted);
+ 
+  font-size: 10px;
+ 
+  text-align: center;
+ 
+}
+ 
+ 
+/* APP LAYOUT */
+ 
+ 
+.app {
+ 
+  display: flex;
+ 
+  min-height: 100vh;
+ 
+  background: var(--cream);
+ 
+}
+ 
+ 
+/* SIDEBAR */
+ 
+ 
+.sidebar {
+ 
+  position: sticky;
+ 
+  top: 0;
+ 
+  display: flex;
+ 
+  flex: 0 0 var(--sidebar-width);
+ 
+  flex-direction: column;
+ 
+  width: var(--sidebar-width);
+ 
+  height: 100vh;
+ 
+  min-height: 600px;
+ 
+  padding: 25px 17px 18px;
+ 
+  overflow-y: auto;
+ 
+  background: var(--navy);
+ 
+  color: #f7f4ec;
+ 
+}
+ 
+ 
+.brand {
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  gap: 12px;
+ 
+  padding: 3px 7px 28px;
+ 
+  border-bottom: 1px solid #ffffff18;
+ 
+}
+ 
+ 
+.brand .small-logo {
+ 
+  flex: 0 0 41px;
+ 
+  background: #e8ede4;
+ 
+  color: var(--navy);
+ 
+}
+ 
+ 
+.brand-text b,
+ 
+.brand-text small {
+ 
+  display: block;
+ 
+}
+ 
+ 
+.brand-text b {
+ 
+  color: #fffdf8;
+ 
+  font-family: Manrope, sans-serif;
+ 
+  font-size: 15px;
+ 
+  font-weight: 800;
+ 
+}
+ 
+ 
+.brand-text small {
+ 
+  margin-top: 4px;
+ 
+  color: #b8c5c4;
+ 
+  font-size: 9px;
+ 
+  letter-spacing: .2px;
+ 
+}
+ 
+ 
+.sidebar-label {
+ 
+  padding: 25px 11px 10px;
+ 
+  color: #93a6a9;
+ 
+  font-size: 9px;
+ 
+  font-weight: 700;
+ 
+  letter-spacing: 1.4px;
+ 
+}
+ 
+ 
+.sidebar-nav {
+ 
+  display: grid;
+ 
+  gap: 5px;
+ 
+}
+ 
+ 
+.sidebar .nav {
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  gap: 12px;
+ 
+  width: 100%;
+ 
+  min-height: 44px;
+ 
+  padding: 10px 12px;
+ 
+  border: 1px solid transparent;
+ 
+  border-radius: 10px;
+ 
+  background: transparent;
+ 
+  color: #c4d0ce;
+ 
+  font-size: 12px;
+ 
+  font-weight: 500;
+ 
+  text-align: left;
+ 
+}
+ 
+ 
+.sidebar .nav:hover {
+ 
+  background: #ffffff0c;
+ 
+  color: white;
+ 
+}
+ 
+ 
+.sidebar .nav.active {
+ 
+  border-color: #ffffff12;
+ 
+  background: #ffffff16;
+ 
+  color: #fffdf8;
+ 
+  font-weight: 700;
+ 
+}
+ 
+ 
+.nav-icon {
+ 
+  display: grid;
+ 
+  flex: 0 0 23px;
+ 
+  width: 23px;
+ 
+  height: 23px;
+ 
+  place-items: center;
+ 
+  border-radius: 7px;
+ 
+  color: #c7d7c8;
+ 
+  font-size: 15px;
+ 
+}
+ 
+ 
+.sidebar .nav.active .nav-icon {
+ 
+  background: #dce6dc;
+ 
+  color: var(--navy);
+ 
+}
+ 
+ 
+.management-label {
+ 
+  padding-top: 25px;
+ 
+}
+ 
+ 
+.sidebar-spacer {
+ 
+  flex: 1;
+ 
+  min-height: 25px;
+ 
+}
+ 
+ 
+.sidebar-note {
+ 
+  display: flex;
+ 
+  align-items: flex-start;
+ 
+  gap: 10px;
+ 
+  padding: 13px 11px;
+ 
+  margin-bottom: 18px;
+ 
+  border: 1px solid #ffffff17;
+ 
+  border-radius: 12px;
+ 
+  background: #ffffff09;
+ 
+}
+ 
+ 
+.sidebar-note-mark {
+ 
+  display: grid;
+ 
+  flex: 0 0 28px;
+ 
+  height: 28px;
+ 
+  place-items: center;
+ 
+  border-radius: 8px;
+ 
+  background: #dce6dc;
+ 
+  color: var(--navy);
+ 
+  font-size: 9px;
+ 
+  font-weight: 800;
+ 
+}
+ 
+ 
+.sidebar-note b,
+ 
+.sidebar-note small {
+ 
+  display: block;
+ 
+}
+ 
+ 
+.sidebar-note b {
+ 
+  color: #f7f4ec;
+ 
+  font-size: 10px;
+ 
+}
+ 
+ 
+.sidebar-note small {
+ 
+  margin-top: 5px;
+ 
+  color: #aab9b9;
+ 
+  font-size: 9px;
+ 
+  line-height: 1.5;
+ 
+}
+ 
+ 
+/* USER SIDEBAR */
+ 
+ 
+.sidebar-bottom {
+ 
+  padding-top: 16px;
+ 
+  border-top: 1px solid #ffffff20;
+ 
+}
+ 
+ 
+.sidebar .user {
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  gap: 10px;
+ 
+  padding: 0 5px 13px;
+ 
+}
+ 
+ 
+.avatar {
+ 
+  display: grid;
+ 
+  flex: 0 0 36px;
+ 
+  width: 36px;
+ 
+  height: 36px;
+ 
+  place-items: center;
+ 
+  border: 1px solid #ffffff30;
+ 
+  border-radius: 50%;
+ 
+  background: #dce6dc;
+ 
+  color: var(--navy);
+ 
+  font-size: 13px;
+ 
+  font-weight: 800;
+ 
+}
+ 
+ 
+.user-meta {
+ 
+  min-width: 0;
+ 
+}
+ 
+ 
+.user-meta b,
+ 
+.user-meta small {
+ 
+  display: block;
+ 
+  overflow: hidden;
+ 
+  text-overflow: ellipsis;
+ 
+  white-space: nowrap;
+ 
+}
+ 
+ 
+.user-meta b {
+ 
+  max-width: 150px;
+ 
+  color: white;
+ 
+  font-size: 11px;
+ 
+}
+ 
+ 
+.user-meta small {
+ 
+  margin-top: 4px;
+ 
+  color: #b8c5c4;
+ 
+  font-size: 10px;
+ 
+}
+ 
+ 
+.sidebar .logout {
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: center;
+ 
+  gap: 9px;
+ 
+  width: 100%;
+ 
+  min-height: 39px;
+ 
+  border: 1px solid #ffffff24;
+ 
+  border-radius: 9px;
+ 
+  background: transparent;
+ 
+  color: #e0e8e4;
+ 
+  font-size: 11px;
+ 
+}
+ 
+ 
+.sidebar .logout:hover {
+ 
+  border-color: #d7a59d;
+ 
+  background: #b34b4022;
+ 
+  color: white;
+ 
+}
+ 
+ 
+/* MAIN AREA */
+ 
+ 
+.main-area {
+ 
+  display: flex;
+ 
+  flex: 1;
+ 
+  flex-direction: column;
+ 
+  min-width: 0;
+ 
+}
+ 
+ 
+.topbar {
+ 
+  position: sticky;
+ 
+  z-index: 5;
+ 
+  top: 0;
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  justify-content: space-between;
+ 
+  min-height: 91px;
+ 
+  padding: 19px 38px;
+ 
+  border-bottom: 1px solid #e5e5dd;
+ 
+  background: #f8f6f0ee;
+ 
+  backdrop-filter: blur(12px);
+ 
+}
+ 
+ 
+.topbar-heading .eyebrow {
+ 
+  margin-bottom: 5px;
+ 
+  font-size: 9px;
+ 
+  letter-spacing: 1.5px;
+ 
+}
+ 
+ 
+.topbar h2 {
+ 
+  margin: 0;
+ 
+  color: var(--navy);
+ 
+  font-family: Manrope, sans-serif;
+ 
+  font-size: 22px;
+ 
+  font-weight: 800;
+ 
+  letter-spacing: -.5px;
+ 
+}
+ 
+ 
+.topbar-user {
+ 
+  display: flex;
+ 
+  align-items: center;
+ 
+  gap: 9px;
+ 
+  max-width: 260px;
+ 
+  padding: 9px 13px;
+ 
+  border: 1px solid var(--line);
+ 
+  border-radius: 30px;
+ 
+  background: var(--paper);
+ 
+  color: var(--navy);
+ 
+  font-size: 10px;
+ 
+  font-weight: 700;
+ 
+}
+ 
+ 
+.topbar-status {
+ 
+  width: 7px;
+ 
+  height: 7px;
+ 
+  border-radius: 50%;
+ 
+  background: var(--sage-dark);
+ 
+}
+ 
+ 
+.content {
+ 
+  flex: 1;
+ 
+  width: 100%;
+ 
+  max-width: 1500px;
+ 
+  padding: 30px 38px 42px;
+ 
+  margin: 0 auto;
+ 
+}
+ 
+ 
+.app-footer {
+ 
+  display: flex;
+ 
+  justify-content: space-between;
+ 
+  gap: 12px;
+ 
+  padding: 17px 38px;
+ 
+  border-top: 1px solid var(--line);
+ 
+  color: var(--muted);
+ 
+  font-size: 9px;
+ 
+}
+ 
+ 
+/* GENERAL COMPONENTS */
+ 
+ 
+.panel {
+ 
+  border: 1px solid #e8e9e2;
+ 
+  border-radius: var(--radius-md);
+ 
+  background: var(--paper);
+ 
+  box-shadow: 0 4px 18px #1b303a06;
+ 
+}
+ 
+ 
+.panel h3 {
+ 
+  color: var(--navy);
+ 
+  font-family: Manrope, sans-serif;
+ 
+}
+ 
+ 
+.welcome {
+ 
+  padding: 28px 30px;
+ 
+  border: 1px solid #dce4d9;
+ 
+  border-radius: var(--radius-lg);
+ 
+  background:
+ 
+    linear-gradient(115deg, #e4ebe1 0%, #f5f2e9 75%);
+ 
+}
+ 
+ 
+.welcome h3 {
+ 
+  color: var(--navy);
+ 
+  font-family: Manrope, sans-serif;
+ 
+  font-size: 23px;
+ 
+}
+ 
+ 
+.welcome p:last-child {
+ 
+  max-width: 580px;
+ 
+  color: #65766f;
+ 
+  font-size: 12px;
+ 
+  line-height: 1.7;
+ 
+}
+ 
+ 
+.primary {
+ 
+  border: 1px solid var(--navy);
+ 
+  border-radius: 10px;
+ 
+  background: var(--navy);
+ 
+  color: #fffdf8;
+ 
+  font-weight: 700;
+ 
+}
+ 
+ 
+.primary:hover {
+ 
+  border-color: var(--navy-light);
+ 
+  background: var(--navy-light);
+ 
+}
+ 
+ 
+.secondary {
+ 
+  border: 1px solid #dce2da;
+ 
+  border-radius: 10px;
+ 
+  background: #f5f6f0;
+ 
+  color: var(--navy);
+ 
+  font-weight: 700;
+ 
+}
+ 
+ 
+.secondary:hover {
+ 
+  background: var(--sage);
+ 
+}
+ 
+ 
+input,
+ 
+select,
+ 
+textarea {
+ 
+  border-radius: 10px;
+ 
+}
+ 
+ 
+.message {
+ 
+  line-height: 1.6;
+ 
+}
+ 
+ 
+.hint {
+ 
+  color: var(--muted);
+ 
+  font-size: 10px;
+ 
+  line-height: 1.6;
+ 
+}
+ 
+ 
+/* RESPONSIVE */
+ 
+ 
+@media (max-width: 1000px) {
+ 
+  :root {
+ 
+    --sidebar-width: 225px;
+ 
+  }
+ 
+ 
+  .topbar,
+ 
+  .content {
+ 
+    padding-right: 25px;
+ 
+    padding-left: 25px;
+ 
+  }
+ 
+}
+ 
+ 
+@media (max-width: 700px) {
+ 
+  .app {
+ 
+    flex-direction: column;
+ 
+  }
+ 
+ 
+  .sidebar {
+ 
+    position: relative;
+ 
+    width: 100%;
+ 
+    height: auto;
+ 
+    min-height: 0;
+ 
+    padding: 14px;
+ 
+  }
+ 
+ 
+  .brand {
+ 
+    padding: 2px 5px 14px;
+ 
+  }
+ 
+ 
+  .sidebar-label,
+ 
+  .sidebar-note,
+ 
+  .sidebar-spacer {
+ 
+    display: none;
+ 
+  }
+ 
+ 
+  .sidebar-nav {
+ 
+    display: flex;
+ 
+    gap: 6px;
+ 
+    padding-top: 12px;
+ 
+    overflow-x: auto;
+ 
+    scrollbar-width: thin;
+ 
+  }
+ 
+ 
+  .sidebar .nav {
+ 
+    flex: 0 0 auto;
+ 
+    width: auto;
+ 
+    min-height: 39px;
+ 
+    padding: 8px 11px;
+ 
+    white-space: nowrap;
+ 
+  }
+ 
+ 
+  .nav-icon {
+ 
+    flex-basis: auto;
+ 
+    width: auto;
+ 
+    height: auto;
+ 
+  }
+ 
+ 
+  .sidebar-bottom {
+ 
+    display: flex;
+ 
+    align-items: center;
+ 
+    justify-content: space-between;
+ 
+    gap: 12px;
+ 
+    padding-top: 12px;
+ 
+    margin-top: 12px;
+ 
+  }
+ 
+ 
+  .sidebar .user {
+ 
+    min-width: 0;
+ 
+    padding: 0;
+ 
+  }
+ 
+ 
+  .sidebar .logout {
+ 
+    width: auto;
+ 
+    min-width: 82px;
+ 
+    padding: 0 12px;
+ 
+  }
+ 
+ 
+  .topbar {
+ 
+    position: relative;
+ 
+    min-height: 76px;
+ 
+    padding: 16px 18px;
+ 
+  }
+ 
+ 
+  .topbar h2 {
+ 
+    font-size: 19px;
+ 
+  }
+ 
+ 
+  .topbar-user {
+ 
+    max-width: 145px;
+ 
+    overflow: hidden;
+ 
+    white-space: nowrap;
+ 
+    text-overflow: ellipsis;
+ 
+  }
+ 
+ 
+  .content {
+ 
+    padding: 19px 15px 30px;
+ 
+  }
+ 
+ 
+  .app-footer {
+ 
+    flex-direction: column;
+ 
+    padding: 15px;
+ 
+  }
+ 
+}
+ 
+ 
+@media (max-width: 480px) {
+ 
+  .auth {
+ 
+    padding: 15px;
+ 
+  }
+ 
+ 
+  .auth-card {
+ 
+    padding: 27px 21px;
+ 
+    border-radius: 19px;
+ 
+  }
+ 
+ 
+  .auth-brand h1 {
+ 
+    font-size: 23px;
+ 
+  }
+ 
+ 
+  .topbar-user {
+ 
+    max-width: 105px;
+ 
+    padding: 8px;
+ 
+    font-size: 9px;
+ 
+  }
+ 
+ 
+  .welcome {
+ 
+    padding: 22px 19px;
+ 
+  }
+ 
+ 
+  .welcome h3 {
+ 
+    font-size: 19px;
+ 
+  }
+ 
+ 
+  .panel {
+ 
+    padding: 17px;
+ 
+  }
+ 
+}
+ 
+ 
+/* =====================================================
+   MUTABAAH SANTRI — FINAL COMPATIBILITY FIXES
+===================================================== */
+ 
+/* Elemen topbar yang dipakai index.html */
+.topbar {
+  min-height: 100px;
+  padding: 24px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  border-bottom: 1px solid var(--line);
+  background: #f8f5ee;
+}
+ 
+.topbar-heading {
+  min-width: 0;
+}
+ 
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #627177;
+  font-size: 12px;
+}
+ 
+.topbar-status {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: var(--sage-dark, #6f8975);
+}
+ 
+/* Footer aplikasi */
+.app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 40px 24px;
+  color: var(--muted);
+  font-size: 10px;
+}
+ 
+/* Ruang pesan dan komponen dinamis */
+.message:empty {
+  display: block;
+}
+ 
+.content > * {
+  min-width: 0;
+}
+ 
+button,
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+ 
+/* Tampilan layar kecil */
+@media (max-width: 1000px) {
+  .topbar {
+    padding: 22px 25px;
+  }
+ 
+  .app-footer {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
+ 
+@media (max-width: 700px) {
+  .topbar {
+    min-height: 75px;
+    padding: 16px 19px;
+  }
+ 
+  .topbar h2 {
+    font-size: 19px;
+  }
+ 
+  .topbar-user {
+    max-width: 145px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+ 
+  .app-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 18px 22px;
+  }
+}
+ 
+@media (max-width: 420px) {
+  .topbar-user {
+    max-width: 105px;
+    font-size: 9px;
+  }
+}
+ 
+ 
+/* Tambahan komponen Mutabaah Harian */
+.check-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 13px;
+  border: 1px solid var(--line, #e7e9e3);
+  border-radius: 12px;
+  background: var(--paper, #fffdf9);
+  color: var(--ink, #263740);
+  font-weight: 500;
+  cursor: pointer;
+}
+.check-field input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  accent-color: var(--sage-dark, #6f8975);
+  cursor: pointer;
+}
+#literasiHint {
+  display: block;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+
+/* =====================================================
+   58. RAPOR PERKEMBANGAN SANTRI
+   Gaya laporan dan mode cetak PDF
+===================================================== */
+
+.rapor-document {
+  margin-top: 18px;
+  padding: 30px;
+  background: #fff;
+  color: #202936;
+  border: 1px solid #e4e8e3;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px #142b3a0a;
+}
+
+.rapor-header {
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  text-align: center;
+  border-bottom: 2px solid #d9e0e8;
+}
+
+.rapor-header .eyebrow {
+  color: var(--sage-dark);
+}
+
+.rapor-header h2 {
+  margin: 8px 0;
+  color: var(--navy);
+  font-family: Manrope, sans-serif;
+  font-size: 25px;
+}
+
+.rapor-header p {
+  margin: 4px 0;
+  color: #596579;
+  font-size: 12px;
+}
+
+.rapor-section {
+  margin: 24px 0;
+}
+
+.rapor-section > h3 {
+  margin: 0 0 14px;
+  padding-bottom: 9px;
+  color: var(--navy);
+  font-family: Manrope, sans-serif;
+  font-size: 16px;
+  border-bottom: 1px solid #dfe5ec;
+}
+
+.rapor-section h4 {
+  margin: 18px 0 8px;
+  color: #34445c;
+  font-size: 13px;
+}
+
+.rapor-identity,
+.rapor-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.rapor-identity > div,
+.rapor-stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 13px;
+  background: #f5f7f3;
+  border: 1px solid #e4e9e2;
+  border-radius: 10px;
+}
+
+.rapor-identity small,
+.rapor-stats span {
+  color: #667085;
+  font-size: 11px;
+}
+
+.rapor-identity b {
+  color: var(--navy);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.rapor-stats b {
+  color: var(--navy);
+  font-family: Manrope, sans-serif;
+  font-size: 21px;
+}
+
+.rapor-table {
+  width: 100%;
+  margin: 8px 0 14px;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.rapor-table th,
+.rapor-table td {
+  padding: 9px 10px;
+  border: 1px solid #e1e6ed;
+  text-align: left;
+  vertical-align: top;
+  font-size: 12px;
+  white-space: normal;
+}
+
+.rapor-table th {
+  width: 30%;
+  background: #f3f5f1;
+  color: #34445c;
+}
+
+.rapor-item {
+  margin: 10px 0;
+  padding: 14px;
+  border: 1px solid #e1e6ed;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.rapor-item h4 {
+  margin: 0 0 8px;
+  color: var(--navy);
+}
+
+.rapor-item p {
+  margin: 6px 0;
+  color: #53616a;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.rapor-assessment {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #d5dce5;
+}
+
+.rapor-footer {
+  margin-top: 26px;
+  padding-top: 13px;
+  border-top: 1px solid #dfe5ec;
+  color: #667085;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.rapor-footer p {
+  margin: 4px 0;
+}
+
+/* Tablet dan ponsel */
+@media (max-width: 700px) {
+  .rapor-document {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .rapor-header h2 {
+    font-size: 20px;
+  }
+
+  .rapor-section > h3 {
+    font-size: 14px;
+  }
+
+  .rapor-identity,
+  .rapor-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rapor-table th,
+  .rapor-table td {
+    padding: 8px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .rapor-document {
+    padding: 13px;
+  }
+
+  .rapor-identity,
+  .rapor-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Cetak / simpan sebagai PDF */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 15mm;
+  }
+
+  html,
+  body {
+    min-height: auto !important;
+    background: #fff !important;
+  }
+
+  body {
+    color: #111 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  #loadingView,
+  #authView,
+  .sidebar,
+  .topbar,
+  .app-footer,
+  .no-print {
+    display: none !important;
+  }
+
+  #appView,
+  .main-area,
+  #pageContent,
+  #raporResult {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  .content {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .rapor-document {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    color: #111 !important;
+  }
+
+  .rapor-section,
+  .rapor-item,
+  .rapor-table tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .rapor-table {
+    width: 100% !important;
+  }
+
+  .rapor-header h2,
+  .rapor-section > h3,
+  .rapor-section h4 {
+    color: #172b4d !important;
+  }
+}
