@@ -5029,13 +5029,13 @@ textarea {
   margin-top: 6px;
   line-height: 1.5;
 }
-
-
+ 
+ 
 /* =====================================================
    58. RAPOR PERKEMBANGAN SANTRI
    Gaya laporan dan mode cetak PDF
 ===================================================== */
-
+ 
 .rapor-document {
   margin-top: 18px;
   padding: 30px;
@@ -5045,35 +5045,35 @@ textarea {
   border-radius: 16px;
   box-shadow: 0 8px 24px #142b3a0a;
 }
-
+ 
 .rapor-header {
   margin-bottom: 24px;
   padding-bottom: 18px;
   text-align: center;
   border-bottom: 2px solid #d9e0e8;
 }
-
+ 
 .rapor-header .eyebrow {
   color: var(--sage-dark);
 }
-
+ 
 .rapor-header h2 {
   margin: 8px 0;
   color: var(--navy);
   font-family: Manrope, sans-serif;
   font-size: 25px;
 }
-
+ 
 .rapor-header p {
   margin: 4px 0;
   color: #596579;
   font-size: 12px;
 }
-
+ 
 .rapor-section {
   margin: 24px 0;
 }
-
+ 
 .rapor-section > h3 {
   margin: 0 0 14px;
   padding-bottom: 9px;
@@ -5082,13 +5082,13 @@ textarea {
   font-size: 16px;
   border-bottom: 1px solid #dfe5ec;
 }
-
+ 
 .rapor-section h4 {
   margin: 18px 0 8px;
   color: #34445c;
   font-size: 13px;
 }
-
+ 
 .rapor-identity,
 .rapor-stats {
   display: grid;
@@ -5096,7 +5096,7 @@ textarea {
   gap: 10px;
   margin: 12px 0;
 }
-
+ 
 .rapor-identity > div,
 .rapor-stats > div {
   display: flex;
@@ -5107,32 +5107,32 @@ textarea {
   border: 1px solid #e4e9e2;
   border-radius: 10px;
 }
-
+ 
 .rapor-identity small,
 .rapor-stats span {
   color: #667085;
   font-size: 11px;
 }
-
+ 
 .rapor-identity b {
   color: var(--navy);
   font-size: 13px;
   overflow-wrap: anywhere;
 }
-
+ 
 .rapor-stats b {
   color: var(--navy);
   font-family: Manrope, sans-serif;
   font-size: 21px;
 }
-
+ 
 .rapor-table {
   width: 100%;
   margin: 8px 0 14px;
   border-collapse: collapse;
   background: #fff;
 }
-
+ 
 .rapor-table th,
 .rapor-table td {
   padding: 9px 10px;
@@ -5142,13 +5142,13 @@ textarea {
   font-size: 12px;
   white-space: normal;
 }
-
+ 
 .rapor-table th {
   width: 30%;
   background: #f3f5f1;
   color: #34445c;
 }
-
+ 
 .rapor-item {
   margin: 10px 0;
   padding: 14px;
@@ -5156,25 +5156,25 @@ textarea {
   border-radius: 10px;
   background: #fff;
 }
-
+ 
 .rapor-item h4 {
   margin: 0 0 8px;
   color: var(--navy);
 }
-
+ 
 .rapor-item p {
   margin: 6px 0;
   color: #53616a;
   font-size: 12px;
   line-height: 1.6;
 }
-
+ 
 .rapor-assessment {
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px dashed #d5dce5;
 }
-
+ 
 .rapor-footer {
   margin-top: 26px;
   padding-top: 13px;
@@ -5183,68 +5183,68 @@ textarea {
   font-size: 11px;
   line-height: 1.6;
 }
-
+ 
 .rapor-footer p {
   margin: 4px 0;
 }
-
+ 
 /* Tablet dan ponsel */
 @media (max-width: 700px) {
   .rapor-document {
     padding: 18px;
     border-radius: 12px;
   }
-
+ 
   .rapor-header h2 {
     font-size: 20px;
   }
-
+ 
   .rapor-section > h3 {
     font-size: 14px;
   }
-
+ 
   .rapor-identity,
   .rapor-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
+ 
   .rapor-table th,
   .rapor-table td {
     padding: 8px;
     font-size: 10px;
   }
 }
-
+ 
 @media (max-width: 420px) {
   .rapor-document {
     padding: 13px;
   }
-
+ 
   .rapor-identity,
   .rapor-stats {
     grid-template-columns: 1fr 1fr;
   }
 }
-
+ 
 /* Cetak / simpan sebagai PDF */
 @media print {
   @page {
     size: A4 portrait;
     margin: 15mm;
   }
-
+ 
   html,
   body {
     min-height: auto !important;
     background: #fff !important;
   }
-
+ 
   body {
     color: #111 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-
+ 
   #loadingView,
   #authView,
   .sidebar,
@@ -5253,7 +5253,7 @@ textarea {
   .no-print {
     display: none !important;
   }
-
+ 
   #appView,
   .main-area,
   #pageContent,
@@ -5266,14 +5266,14 @@ textarea {
     padding: 0 !important;
     background: #fff !important;
   }
-
+ 
   .content {
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
     padding: 0 !important;
   }
-
+ 
   .rapor-document {
     margin: 0 !important;
     padding: 0 !important;
@@ -5282,18 +5282,18 @@ textarea {
     box-shadow: none !important;
     color: #111 !important;
   }
-
+ 
   .rapor-section,
   .rapor-item,
   .rapor-table tr {
     break-inside: avoid;
     page-break-inside: avoid;
   }
-
+ 
   .rapor-table {
     width: 100% !important;
   }
-
+ 
   .rapor-header h2,
   .rapor-section > h3,
   .rapor-section h4 {
