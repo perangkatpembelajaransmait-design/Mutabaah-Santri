@@ -124,6 +124,33 @@ function showMessage(message, success = false) {
  
 }
  
+function authErrorMessage(error) {
+  const message = String(error?.message || "").toLowerCase();
+  if (message.includes("invalid login credentials")) return "Email atau password salah. Periksa kembali data login Anda.";
+  if (message.includes("email not confirmed")) return "Email belum dikonfirmasi. Silakan buka email konfirmasi terlebih dahulu.";
+  if (message.includes("rate limit") || message.includes("too many requests")) return "Terlalu banyak percobaan. Tunggu beberapa saat sebelum mencoba kembali.";
+  if (message.includes("network") || message.includes("fetch")) return "Koneksi ke server terganggu. Periksa jaringan internet lalu coba kembali.";
+  if (message.includes("user not found")) return "Akun dengan email tersebut tidak ditemukan.";
+  return error?.message || "Terjadi kesalahan yang tidak diketahui.";
+}
+ 
+function bindPasswordToggles() {
+  document.querySelectorAll("[data-toggle-password]").forEach(button => {
+    if (button.dataset.bound === "true") return;
+    button.addEventListener("click", () => {
+      const input = document.getElementById(button.dataset.togglePassword);
+      if (!input) return;
+      const reveal = input.type === "password";
+      input.type = reveal ? "text" : "password";
+      button.textContent = reveal ? "Sembunyikan" : "Lihat";
+      button.setAttribute("aria-label", reveal ? "Sembunyikan password" : "Tampilkan password");
+      button.setAttribute("aria-pressed", String(reveal));
+    });
+    button.dataset.bound = "true";
+  });
+}
+ 
+ 
  
 function showLoading() {
  
@@ -315,58 +342,54 @@ tabRegister.addEventListener(
 loginForm.addEventListener(
   "submit",
   async function(event) {
- 
     event.preventDefault();
- 
     if (!checkConfiguration()) return;
  
-    const email =
-      document.getElementById("loginEmail")
-        .value.trim();
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    const roleInput = document.getElementById("loginRole");
+    const selectedRole = roleInput?.value || "";
  
-    const password =
-      document.getElementById("loginPassword")
-        .value;
+    if (roleInput && !selectedRole) {
+      showMessage("Silakan pilih peran akun sebelum masuk.");
+      roleInput.focus();
+      return;
+    }
  
     loginButton.disabled = true;
- 
     loginButton.textContent = "Memeriksa...";
- 
     showMessage("");
  
     try {
- 
-      const { data, error } =
-        await supabaseClient.auth.signInWithPassword({
- 
-          email: email,
- 
-          password: password
- 
-        });
- 
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
       if (error) throw error;
  
       currentUser = data.user;
+      await loadProfile();
+ 
+      // Peran yang sah dibaca dari profiles, bukan ditentukan oleh pilihan pengguna.
+      if (selectedRole && currentProfile.role !== selectedRole) {
+        const actualRole = roleLabel(currentProfile.role);
+        await supabaseClient.auth.signOut();
+        currentUser = null;
+        currentProfile = null;
+        throw new Error(`Peran yang dipilih tidak sesuai. Akun ini terdaftar sebagai "${actualRole}". Pilih peran yang benar atau hubungi Admin.`);
+      }
  
       await loadApplication();
- 
     } catch(error) {
- 
       console.error("LOGIN ERROR:", error);
- 
-      showMessage(
-        "Login gagal: " + error.message
-      );
- 
+      if (currentUser) {
+        try { await supabaseClient.auth.signOut(); }
+        catch(signOutError) { console.warn("Gagal membersihkan sesi:", signOutError); }
+        currentUser = null;
+        currentProfile = null;
+      }
+      showMessage("Login gagal: " + authErrorMessage(error));
     } finally {
- 
       loginButton.disabled = false;
- 
       loginButton.textContent = "Masuk";
- 
     }
- 
   }
 );
  
@@ -374,6 +397,7 @@ loginForm.addEventListener(
 /* =====================================================
    9. REGISTER
 ===================================================== */
+ 
  
 registerForm.addEventListener(
   "submit",
@@ -495,7 +519,7 @@ registerForm.addEventListener(
       console.error("REGISTER ERROR:", error);
  
       showMessage(
-        "Pendaftaran gagal: " + error.message
+        "Pendaftaran gagal: " + authErrorMessage(error)
       );
  
     } finally {
@@ -805,7 +829,7 @@ async function renderPage(page) {
     pageEyebrow.textContent = "LAPORAN PERKEMBANGAN";
  
     await renderRapor();
-
+ 
     return;
  
   }
@@ -1045,7 +1069,7 @@ async function renderDashboard() {
    Orang Tua hanya melihat santri yang terhubung.
    Santri hanya melihat data dirinya sendiri.
 ===================================================== */
-
+ 
 async function renderRapor() {
   pageContent.innerHTML = `
     <section class="panel">
@@ -1053,7 +1077,7 @@ async function renderRapor() {
       <h3>Menyiapkan Rapor Santri...</h3>
       <p class="muted">Mengambil data sesuai hak akses akun.</p>
     </section>`;
-
+ 
   try {
     await loadStudents();
     const role = currentProfile?.role || "";
@@ -1061,13 +1085,13 @@ async function renderRapor() {
       pageContent.innerHTML = `<section class="panel"><h3>Data santri belum terhubung</h3><p class="muted">Akun ini belum memiliki data santri yang dapat ditampilkan.</p></section>`;
       return;
     }
-
+ 
     const canSelect = role === "Admin" || role === "Guru" || role === "Orang Tua";
     const options = studentList.map(s => `<option value="${escapeHTML(s.id)}">${escapeHTML(s.nama)} — ${escapeHTML(s.kelas || "-")}</option>`).join("");
     const studentField = canSelect
       ? `<div><label for="raporStudent">Santri</label><select id="raporStudent">${options}</select></div>`
       : `<div><label>Santri</label><div class="explore-student-fixed">${escapeHTML(studentList[0].nama)} · ${escapeHTML(studentList[0].kelas || "-")}</div><input id="raporStudent" type="hidden" value="${escapeHTML(studentList[0].id)}"></div>`;
-
+ 
     pageContent.innerHTML = `
       <section class="panel no-print">
         <p class="eyebrow">PENGATURAN RAPOR</p>
@@ -1085,14 +1109,14 @@ async function renderRapor() {
         <p id="raporMessage" class="message" role="status"></p>
       </section>
       <div id="raporResult"></div>`;
-
+ 
     const startInput = document.getElementById("raporStart");
     const endInput = document.getElementById("raporEnd");
     // Periode awal default 30 hari sebelum hari ini; Admin dapat mengubahnya.
     const defaultStart = new Date();
     defaultStart.setDate(defaultStart.getDate() - 29);
     startInput.value = `${defaultStart.getFullYear()}-${String(defaultStart.getMonth()+1).padStart(2,"0")}-${String(defaultStart.getDate()).padStart(2,"0")}`;
-
+ 
     document.getElementById("generateRapor").addEventListener("click", generateRaporReport);
     document.getElementById("raporStudent").addEventListener("change", () => {
       document.getElementById("raporResult").innerHTML = "";
@@ -1104,7 +1128,7 @@ async function renderRapor() {
     pageContent.innerHTML = `<section class="panel"><h3>Rapor belum dapat dibuka</h3><p class="message">${escapeHTML(error.message)}</p></section>`;
   }
 }
-
+ 
 async function raporFetchRows(table, studentId, dateColumn, startDate, endDate, columns = "*") {
   let query = supabaseClient.from(table).select(columns).eq("santri_id", studentId);
   if (dateColumn) query = query.gte(dateColumn, startDate).lte(dateColumn, endDate).order(dateColumn, { ascending: true });
@@ -1112,7 +1136,7 @@ async function raporFetchRows(table, studentId, dateColumn, startDate, endDate, 
   if (error) throw new Error(`Gagal mengambil ${table}: ${error.message}`);
   return data || [];
 }
-
+ 
 async function generateRaporReport() {
   const button = document.getElementById("generateRapor");
   const message = document.getElementById("raporMessage");
@@ -1121,17 +1145,17 @@ async function generateRaporReport() {
   const startDate = document.getElementById("raporStart")?.value;
   const endDate = document.getElementById("raporEnd")?.value;
   const student = studentList.find(s => String(s.id) === String(studentId));
-
+ 
   if (!student) { message.textContent = "Santri tidak ditemukan dalam daftar akun ini."; return; }
   if (!startDate || !endDate) { message.textContent = "Tanggal awal dan akhir wajib diisi."; return; }
   if (startDate > endDate) { message.textContent = "Tanggal awal tidak boleh melewati tanggal akhir."; return; }
-
+ 
   button.disabled = true;
   button.textContent = "Menyusun...";
   message.textContent = "Mengambil data mutabaah, Al-Qur'an, dan Eksplor...";
   result.innerHTML = "";
   document.getElementById("printRapor").disabled = true;
-
+ 
   try {
     const [mutabaah, quranActivity, setoran, murojaah, evaluasi, tahfizTargets, murojaahTargets, skills] = await Promise.all([
       raporFetchRows("mutabaah_harian", studentId, "tanggal", startDate, endDate),
@@ -1144,19 +1168,19 @@ async function generateRaporReport() {
       supabaseClient.from("mastery_skills").select("id,nama_skill,ikon,urutan").eq("aktif", true).order("urutan")
     ]);
     if (skills.error) throw new Error(`Gagal mengambil mastery skills: ${skills.error.message}`);
-
+ 
     const validSetoran = setoran.filter(x => x.status === "valid");
     const totalJuz = validSetoran.reduce((sum, x) => sum + Number(x.jumlah_juz || 0), 0);
     const totalMurojaah = murojaah.reduce((sum, x) => sum + Number(x.jumlah_sesi || 0), 0);
     const latestEval = evaluasi[evaluasi.length - 1];
     const evalLabels = ["makhraj", "tajwid", "kelancaran", "panjang_pendek"];
     const evalAverage = latestEval ? (evalLabels.reduce((sum, k) => sum + Number(latestEval[k] || 0), 0) / 4).toFixed(2) : "—";
-
+ 
     // Target ditampilkan bila rentang masa target beririsan dengan periode rapor.
     const overlaps = item => (!item.periode_mulai || item.periode_mulai <= endDate) && (!item.periode_selesai || item.periode_selesai >= startDate);
     const activeTahfizTargets = tahfizTargets.filter(overlaps);
     const activeMurojaahTargets = murojaahTargets.filter(overlaps);
-
+ 
     const { data: periods, error: periodError } = await supabaseClient
       .from("explore_periods")
       .select("id,skill_id,status,tanggal_mulai,tanggal_selesai,alasan_memilih,tujuan_pengembangan,hasil_akhir")
@@ -1175,7 +1199,7 @@ async function generateRaporReport() {
       if (error) throw new Error(`Gagal mengambil penilaian Eksplor: ${error.message}`);
       assessments = data || [];
     }
-
+ 
     const skillMap = new Map((skills.data || []).map(x => [String(x.id), x]));
     const fmt = value => value === null || value === undefined || value === "" ? "—" : escapeHTML(value);
     const date = value => value ? formatDate(value) : "—";
@@ -1186,6 +1210,7 @@ async function generateRaporReport() {
     const schoolRows = mutabaah.filter(x => x.jenis_mutabaah === "sekolah");
     const activityCount = key => mutabaah.filter(x => x[key] === true).length;
     const prayerCount = prayer => mutabaah.filter(x => x.shalat_fardu && x.shalat_fardu[prayer]).length;
+    const totalRawatibRakaat = mutabaah.reduce((sum, item) => sum + Number(item.shalat_rawatib_rakaat || 0), 0);
     const prayerNames = ["Subuh", "Dzuhur", "Ashar", "Maghrib", "Isya"];
     const prayerSummary = prayerNames.map(p => `<tr><th>${p}</th><td>${prayerCount(p)} catatan terisi</td></tr>`).join("");
     const periodCards = relevantPeriods.map(p => {
@@ -1193,17 +1218,17 @@ async function generateRaporReport() {
       const related = assessments.filter(a => String(a.period_id) === String(p.id));
       return `<article class="rapor-item"><h4>${fmt(skill?.nama_skill || "Mastery Skill")}</h4><p><b>Status:</b> ${fmt(p.status)} · <b>Periode:</b> ${date(p.tanggal_mulai)} – ${date(p.tanggal_selesai)}</p>${p.tujuan_pengembangan ? `<p><b>Tujuan:</b> ${fmt(p.tujuan_pengembangan)}</p>` : ""}${p.hasil_akhir ? `<p><b>Hasil akhir:</b> ${fmt(p.hasil_akhir)}</p>` : ""}${related.length ? related.map(a => `<div class="rapor-assessment"><b>${date(a.tanggal_penilaian)}</b> · Nilai: ${fmt(a.nilai)} · ${fmt(a.tingkat_penguasaan)}<p>${fmt(a.deskripsi_perkembangan)}</p>${a.kekuatan ? `<p><b>Kekuatan:</b> ${fmt(a.kekuatan)}</p>` : ""}${a.aspek_perbaikan ? `<p><b>Aspek perbaikan:</b> ${fmt(a.aspek_perbaikan)}</p>` : ""}${a.rekomendasi ? `<p><b>Rekomendasi:</b> ${fmt(a.rekomendasi)}</p>` : ""}</div>`).join("") : `<p class="muted">Belum ada penilaian dalam periode rapor.</p>`}</article>`;
     }).join("");
-
+ 
     result.innerHTML = `
       <section class="panel rapor-document" id="raporDocument">
         <header class="rapor-header"><p class="eyebrow">LAPORAN PERKEMBANGAN SANTRI</p><h2>Rapor Santri</h2><p>Periode ${date(startDate)} sampai ${date(endDate)}</p></header>
         <section class="rapor-section"><h3>1. Identitas Santri</h3><div class="rapor-identity"><div><small>Nama</small><b>${fmt(student.nama)}</b></div><div><small>NIS</small><b>${fmt(student.nis)}</b></div><div><small>Kelas</small><b>${fmt(student.kelas)}</b></div><div><small>Jenis Kelamin</small><b>${fmt(student.jenis_kelamin)}</b></div></div></section>
-        <section class="rapor-section"><h3>2. Mutabaah Harian</h3><div class="rapor-stats"><div><b>${mutabaah.length}</b><span>Total catatan</span></div><div><b>${homeRows.length}</b><span>Mutabaah Rumah</span></div><div><b>${schoolRows.length}</b><span>Mutabaah Sekolah</span></div></div><h4>Ringkasan Shalat Fardu</h4><table class="rapor-table"><tbody>${prayerSummary}</tbody></table><h4>Pembiasaan dan Aktivitas</h4><table class="rapor-table"><tbody><tr><th>Tahajud</th><td>${activityCount("shalat_tahajud")} catatan</td></tr><tr><th>Dhuha</th><td>${activityCount("shalat_dhuha")} catatan</td></tr><tr><th>Witir</th><td>${activityCount("shalat_witir")} catatan</td></tr><tr><th>Puasa Senin</th><td>${activityCount("puasa_senin")} catatan</td></tr><tr><th>Puasa Kamis</th><td>${activityCount("puasa_kamis")} catatan</td></tr><tr><th>Literasi</th><td>${mutabaah.filter(x => x.literasi).length} catatan</td></tr></tbody></table><h4>Catatan Mutabaah</h4>${tableRows(mutabaah.filter(x => x.catatan || x.kebersihan_diri_keterangan || x.literasi_judul), x => `<tr><th>${date(x.tanggal)} · ${fmt(x.jenis_mutabaah)}</th><td>${x.literasi_judul ? `<b>Buku:</b> ${fmt(x.literasi_judul)} (${fmt(x.literasi_halaman)} halaman)<br>` : ""}${x.kebersihan_diri_keterangan ? `<b>Kebersihan:</b> ${fmt(x.kebersihan_diri_keterangan)}<br>` : ""}${fmt(x.catatan)}</td></tr>`, "Belum ada catatan tambahan pada periode ini.")}</section>
+        <section class="rapor-section"><h3>2. Mutabaah Harian</h3><div class="rapor-stats"><div><b>${mutabaah.length}</b><span>Total catatan</span></div><div><b>${homeRows.length}</b><span>Mutabaah Rumah</span></div><div><b>${schoolRows.length}</b><span>Mutabaah Sekolah</span></div></div><h4>Ringkasan Shalat Fardu</h4><table class="rapor-table"><tbody>${prayerSummary}</tbody></table><h4>Pembiasaan dan Aktivitas</h4><table class="rapor-table"><tbody><tr><th>Tahajud</th><td>${activityCount("shalat_tahajud")} catatan</td></tr><tr><th>Dhuha</th><td>${activityCount("shalat_dhuha")} catatan</td></tr><tr><th>Witir</th><td>${activityCount("shalat_witir")} catatan</td></tr><tr><th>Rawatib</th><td>${totalRawatibRakaat} rakaat tercatat</td></tr><tr><th>Puasa Senin</th><td>${activityCount("puasa_senin")} catatan</td></tr><tr><th>Puasa Kamis</th><td>${activityCount("puasa_kamis")} catatan</td></tr><tr><th>Literasi</th><td>${mutabaah.filter(x => x.literasi).length} catatan</td></tr></tbody></table><h4>Catatan Mutabaah</h4>${tableRows(mutabaah.filter(x => x.catatan || x.kebersihan_diri_keterangan || x.literasi_judul), x => `<tr><th>${date(x.tanggal)} · ${fmt(x.jenis_mutabaah)}</th><td>${x.literasi_judul ? `<b>Buku:</b> ${fmt(x.literasi_judul)} (${fmt(x.literasi_halaman)} halaman)<br>` : ""}${x.kebersihan_diri_keterangan ? `<b>Kebersihan:</b> ${fmt(x.kebersihan_diri_keterangan)}<br>` : ""}${fmt(x.catatan)}</td></tr>`, "Belum ada catatan tambahan pada periode ini.")}</section>
         <section class="rapor-section"><h3>3. Perkembangan Al-Qur'an</h3><div class="rapor-stats"><div><b>${quranActivity.length}</b><span>Aktivitas mutabaah</span></div><div><b>${totalJuz.toFixed(2)}</b><span>Juz setoran valid</span></div><div><b>${totalMurojaah}</b><span>Sesi murojaah</span></div><div><b>${evalAverage}</b><span>Rata-rata evaluasi terbaru (skala 1–4)</span></div></div><h4>Target Tahfiz yang Beririsan dengan Periode</h4>${tableRows(activeTahfizTargets, x => `<tr><th>${fmt(x.program || "Target Tahfiz")}</th><td>${date(x.periode_mulai)} – ${date(x.periode_selesai)} · Target ${fmt(x.target_juz)} juz · ${fmt(x.catatan)}</td></tr>`, "Tidak ada target tahfiz yang tercatat pada rentang periode ini.")}<h4>Setoran Al-Qur'an</h4>${tableRows(validSetoran, x => `<tr><th>${date(x.tanggal)}</th><td>${fmt(x.surah_awal)} ayat ${fmt(x.ayat_awal)} – ${fmt(x.surah_akhir)} ayat ${fmt(x.ayat_akhir)} · ${fmt(x.jumlah_juz)} juz</td></tr>`, "Belum ada setoran berstatus valid pada periode ini.")}<h4>Murojaah</h4>${tableRows(murojaah, x => `<tr><th>${date(x.tanggal)}</th><td>${fmt(x.jumlah_sesi)} sesi · ${fmt(x.materi)} · ${fmt(x.catatan)}</td></tr>`, "Belum ada catatan murojaah pada periode ini.")}<h4>Target Murojaah yang Beririsan dengan Periode</h4>${tableRows(activeMurojaahTargets, x => `<tr><th>${date(x.periode_mulai)} – ${date(x.periode_selesai)}</th><td>Target ${fmt(x.target_sesi)} sesi · ${fmt(x.catatan)}</td></tr>`, "Tidak ada target murojaah yang beririsan dengan periode ini.")}<h4>Evaluasi Bacaan</h4>${tableRows(evaluasi, x => `<tr><th>${date(x.tanggal_evaluasi)}</th><td>Makhraj: ${fmt(x.makhraj)} · Tajwid: ${fmt(x.tajwid)} · Kelancaran: ${fmt(x.kelancaran)} · Panjang-pendek: ${fmt(x.panjang_pendek)}<br>${fmt(x.catatan)}</td></tr>`, "Belum ada evaluasi bacaan pada periode ini.")}</section>
         <section class="rapor-section"><h3>4. Eksplor — Mastery Skills</h3>${periodCards || `<p class="muted">Belum ada periode Mastery Skills yang beririsan dengan periode rapor.</p>`}</section>
         <footer class="rapor-footer"><p>Rapor ini disusun berdasarkan data yang tercatat dalam sistem Mutabaah Santri pada periode tersebut.</p><p>Tanggal cetak: ${date(todayDate())}</p></footer>
       </section>`;
-
+ 
     document.getElementById("printRapor").disabled = false;
     message.textContent = "Rapor berhasil disusun.";
     message.classList.add("success");
@@ -1215,9 +1240,9 @@ async function generateRaporReport() {
     button.textContent = "Tampilkan Rapor";
   }
 }
-
-
-
+ 
+ 
+ 
 /* =====================================================
    18. HALAMAN BELUM DIAKTIFKAN
 ===================================================== */
@@ -1460,6 +1485,13 @@ async function renderMutabaah() {
             <label class="check-field"><input type="checkbox" id="shalatDhuha"> Shalat Dhuha</label>
             <label class="check-field"><input type="checkbox" id="shalatWitir"> Shalat Witir</label>
           </div>
+          <div class="form-grid">
+            <div>
+              <label for="shalatRawatibRakaat">Jumlah rakaat Shalat Rawatib</label>
+              <input id="shalatRawatibRakaat" type="number" min="0" max="12" step="1" value="0" inputmode="numeric">
+              <small class="muted">Isi 0 jika tidak melaksanakan Shalat Rawatib.</small>
+            </div>
+          </div>
  
           <div class="section-title">
             <span>03</span>
@@ -1540,6 +1572,18 @@ async function renderMutabaah() {
       document.getElementById("studentId").value = studentList[0].id;
     }
  
+    document.querySelectorAll("[data-prayer-performance]").forEach(select => {
+      const prayer = select.dataset.prayerPerformance;
+      const timeSelect = document.querySelector(`[data-prayer-time="${CSS.escape(prayer)}"]`);
+      const syncPrayerTime = () => {
+        const unavailable = !select.value || select.value === "tidak";
+        timeSelect.disabled = unavailable;
+        if (unavailable) timeSelect.value = "";
+      };
+      select.addEventListener("change", syncPrayerTime);
+      syncPrayerTime();
+    });
+ 
     document.getElementById("mutabaahForm")
       .addEventListener("submit", saveMutabaah);
     document.getElementById("refreshHistory")
@@ -1580,31 +1624,31 @@ async function renderMutabaah() {
 ===================================================== */
  
 function createPrayerField(name) {
- 
   const id = name.toLowerCase();
- 
   return `
-    <div class="prayer-row">
- 
+    <div class="prayer-row prayer-row-split">
       <strong>${escapeHTML(name)}</strong>
- 
-      <select
-        id="prayer_${id}"
-        data-prayer="${escapeHTML(name)}"
-      >
- 
-        <option value="">Belum diisi</option>
-        <option value="berjamaah">Berjamaah</option>
-        <option value="munfarid">Munfarid</option>
-        <option value="awal_waktu">Awal waktu</option>
-        <option value="terlambat">Terlambat</option>
-        <option value="tidak">Tidak dilaksanakan</option>
- 
-      </select>
- 
+      <div class="prayer-controls">
+        <div>
+          <label for="prayer_pelaksanaan_${id}">Pelaksanaan</label>
+          <select id="prayer_pelaksanaan_${id}" data-prayer-performance="${escapeHTML(name)}">
+            <option value="">Belum diisi</option>
+            <option value="berjamaah">Berjamaah</option>
+            <option value="munfarid">Munfarid</option>
+            <option value="tidak">Tidak dilaksanakan</option>
+          </select>
+        </div>
+        <div>
+          <label for="prayer_waktu_${id}">Ketepatan waktu</label>
+          <select id="prayer_waktu_${id}" data-prayer-time="${escapeHTML(name)}">
+            <option value="">Belum diisi</option>
+            <option value="awal_waktu">Awal waktu</option>
+            <option value="terlambat">Terlambat</option>
+          </select>
+        </div>
+      </div>
     </div>
   `;
- 
 }
  
  
@@ -1633,9 +1677,27 @@ async function saveMutabaah(event) {
     if (!jenis) throw new Error("Silakan pilih jenis mutabaah.");
  
     const shalatFardu = {};
-    document.querySelectorAll("[data-prayer]").forEach(select => {
-      if (select.value) shalatFardu[select.dataset.prayer] = select.value;
+    document.querySelectorAll("[data-prayer-performance]").forEach(select => {
+      const prayer = select.dataset.prayerPerformance;
+      const timeSelect = document.querySelector(`[data-prayer-time="${CSS.escape(prayer)}"]`);
+      const pelaksanaan = select.value;
+      const ketepatanWaktu = timeSelect?.value || "";
+ 
+      if (pelaksanaan === "tidak") {
+        shalatFardu[prayer] = { pelaksanaan: "tidak", ketepatan_waktu: null };
+      } else if (pelaksanaan) {
+        if (!ketepatanWaktu) throw new Error(`Pilih ketepatan waktu untuk shalat ${prayer}.`);
+        shalatFardu[prayer] = { pelaksanaan, ketepatan_waktu: ketepatanWaktu };
+      } else if (ketepatanWaktu) {
+        throw new Error(`Pilih pelaksanaan shalat ${prayer} terlebih dahulu.`);
+      }
     });
+ 
+    const rawatibValue = document.getElementById("shalatRawatibRakaat").value;
+    const rawatibRakaat = rawatibValue === "" ? 0 : Number(rawatibValue);
+    if (!Number.isInteger(rawatibRakaat) || rawatibRakaat < 0 || rawatibRakaat > 12) {
+      throw new Error("Jumlah rakaat Shalat Rawatib harus berupa bilangan bulat 0–12.");
+    }
  
     const judulBuku = document.getElementById("literasiJudul").value.trim();
     const halamanBuku = document.getElementById("literasiHalaman").value.trim();
@@ -1647,6 +1709,7 @@ async function saveMutabaah(event) {
       jenis_mutabaah: jenis,
       pengisi_id: currentUser?.id || null,
       shalat_fardu: shalatFardu,
+      shalat_rawatib_rakaat: rawatibRakaat,
       shalat_tahajud: document.getElementById("shalatTahajud").checked,
       shalat_dhuha: document.getElementById("shalatDhuha").checked,
       shalat_witir: document.getElementById("shalatWitir").checked,
@@ -1759,7 +1822,7 @@ async function loadMutabaahHistory() {
       .from("mutabaah_harian")
       .select(`
         id, santri_id, tanggal, jenis_mutabaah, shalat_fardu,
-        shalat_tahajud, shalat_dhuha, shalat_witir,
+        shalat_rawatib_rakaat, shalat_tahajud, shalat_dhuha, shalat_witir,
         puasa_senin, puasa_kamis, puasa_lainnya,
         tidur_malam_jam, waktu_bangun_tidur,
         literasi, literasi_judul, literasi_halaman,
@@ -1783,7 +1846,19 @@ async function loadMutabaahHistory() {
     }
  
     container.innerHTML = historyList.map(item => {
-      const prayerCount = Object.keys(item.shalat_fardu || {}).length;
+      const prayerData = item.shalat_fardu || {};
+      const prayerCount = Object.keys(prayerData).length;
+      const prayerDetails = Object.entries(prayerData).map(([name, value]) => {
+        if (typeof value === "string") {
+          const labels = { berjamaah: "Berjamaah", munfarid: "Munfarid", awal_waktu: "Awal waktu", terlambat: "Terlambat", tidak: "Tidak dilaksanakan" };
+          return `${name}: ${labels[value] || value}`;
+        }
+        const pelaksanaanLabels = { berjamaah: "Berjamaah", munfarid: "Munfarid", tidak: "Tidak dilaksanakan" };
+        const waktuLabels = { awal_waktu: "Awal waktu", terlambat: "Terlambat" };
+        const pelaksanaan = pelaksanaanLabels[value?.pelaksanaan] || "—";
+        const waktu = waktuLabels[value?.ketepatan_waktu];
+        return `${name}: ${pelaksanaan}${waktu ? " · " + waktu : ""}`;
+      });
       const sunah = [
         item.shalat_tahajud ? "Tahajud" : null,
         item.shalat_dhuha ? "Dhuha" : null,
@@ -1806,7 +1881,9 @@ async function loadMutabaahHistory() {
           <div>
             <strong>${formatDate(item.tanggal)}</strong>
             <small>${escapeHTML(item.jenis_mutabaah)} · ${prayerCount} shalat fardu terisi</small>
+            <small>${prayerDetails.length ? prayerDetails.map(escapeHTML).join(" | ") : "Detail shalat fardu belum diisi"}</small>
             <small>Shalat sunah: ${sunah.length ? escapeHTML(sunah.join(", ")) : "—"}</small>
+            <small>Shalat Rawatib: ${Number(item.shalat_rawatib_rakaat || 0)} rakaat</small>
             <small>Puasa: ${puasa.length ? escapeHTML(puasa.join(", ")) : "—"}</small>
             <small>Waktu tidur: ${escapeHTML(sleep)}</small>
             <small>Literasi: ${literacy}</small>
@@ -5340,7 +5417,11 @@ function exploreBindAssessmentForms() {
 ===================================================== */
  
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", checkSession, { once: true });
+  document.addEventListener("DOMContentLoaded", () => {
+    bindPasswordToggles();
+    checkSession();
+  }, { once: true });
 } else {
+  bindPasswordToggles();
   checkSession();
 }
